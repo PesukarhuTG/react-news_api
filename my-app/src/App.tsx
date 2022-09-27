@@ -1,15 +1,17 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { MainPage, About, NotFound } from './pages';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    );
+  }
 }
 
 export default App;
