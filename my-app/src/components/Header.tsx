@@ -6,7 +6,7 @@ class Header extends React.Component {
   render() {
     return (
       <AppHeader>
-        <HeaderLogo to="/">My App</HeaderLogo>
+        <HeaderLogo to="/">RACOON cinema</HeaderLogo>
 
         <HeaderNav>
           <HeaderNavItem to="/" label="Home" />
@@ -46,7 +46,7 @@ const AppHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding: 20px 0;
 `;
 
 const HeaderLogo = styled(Link)`

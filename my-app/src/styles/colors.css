@@ -1,5 +1,8 @@
 :root {
-  --main-background: #efefef;
-  --main-color: #292929;
-  --primary: #005bff;
+  --main-background: #1e2027;
+  --main-color: #fff;
+  --primary: #1890ff;
+  --accent: #d3ac3f;
+  --contrast-font-color: #1e2027;
+  --second-contrast: #262a2f;
 }

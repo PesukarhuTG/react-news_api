@@ -43,15 +43,18 @@ p {
 a {
   color: var(--main-color);
   text-decoration: none;
+  transition: color 0.2s;
   cursor: pointer;
 }
 
-.container {
-  max-width: 1440px;
-  width: 100%;
-  margin: 0 auto;
-  padding-left: 40px;
-  padding-right: 40px;
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 nav.burger-active {
