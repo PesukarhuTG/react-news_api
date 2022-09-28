@@ -15,29 +15,36 @@ interface SearchInputState {
 class SearchPanel extends React.Component<SearchInputProps, SearchInputState> {
   constructor(props: SearchInputProps) {
     super(props);
-    this.state = { value: '' };
+    this.state = {
+      value: localStorage.getItem('searchData') ?? '',
+    };
+    console.log('constructor');
   }
 
-  onSearch(value: string) {
-    localStorage.setItem('searchData', value);
+  onSearch(searchValue: string) {
+    this.setState({ value: searchValue });
   }
 
   componentDidMount(): void {
-    const data = (
-      localStorage.getItem('searchData') ? localStorage.getItem('searchData') : ''
-    ) as string;
+    console.log('mount');
+  }
 
-    console.log(data);
+  componentDidUpdate(): void {
+    console.log('update');
+  }
 
-    this.setState({ value: data });
-    console.log(this.state.value);
+  componentWillUnmount(): void {
+    localStorage.setItem('searchData', this.state.value); // Input value should be saved to LocalStorage during component’s unmount
+    console.log('unmount');
   }
 
   render() {
+    console.log('render');
     return (
       <StyledSearch
         placeholder="Search..."
         onSearch={(value) => this.onSearch(value)}
+        value={this.state.value}
         enterButton
       />
     );
