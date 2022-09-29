@@ -4,47 +4,37 @@ import { Input } from 'antd';
 
 const { Search } = Input;
 
-interface SearchInputProps {
-  value?: string;
-}
+class SearchPanel extends React.Component {
+  state = {
+    value: '',
+  };
 
-interface SearchInputState {
-  value: string;
-}
-
-class SearchPanel extends React.Component<SearchInputProps, SearchInputState> {
-  constructor(props: SearchInputProps) {
-    super(props);
-    this.state = {
-      value: localStorage.getItem('searchData') ?? '',
-    };
-    console.log('constructor');
-  }
-
-  onSearch(searchValue: string) {
+  onChange(searchValue: string) {
     this.setState({ value: searchValue });
   }
 
   componentDidMount(): void {
-    console.log('mount');
+    const value = localStorage.getItem('searchData');
+    if (value) {
+      this.setState({ value });
+    }
   }
 
   componentDidUpdate(): void {
-    console.log('update');
+    localStorage.setItem('searchData', this.state.value); //if we clear input via clear icon
   }
 
   componentWillUnmount(): void {
-    localStorage.setItem('searchData', this.state.value); // Input value should be saved to LocalStorage during component’s unmount
-    console.log('unmount');
+    this.state.value.length && localStorage.setItem('searchData', this.state.value);
   }
 
   render() {
-    console.log('render');
     return (
       <StyledSearch
         placeholder="Search..."
-        onSearch={(value) => this.onSearch(value)}
+        onChange={(e) => this.onChange(e.target.value)}
         value={this.state.value}
+        allowClear
         enterButton
       />
     );
@@ -59,12 +49,7 @@ const StyledSearch = styled(Search)`
   .ant-input-group .ant-input {
     height: 50px;
     background-color: var(--second-contrast);
-    border: 1px solid var(--second-contrast);
     color: var(--main-color);
-
-    &:hover {
-      border: 1px solid var(--primary);
-    }
   }
 
   .ant-input-group {
@@ -72,7 +57,22 @@ const StyledSearch = styled(Search)`
   }
 
   button.ant-input-search-button {
-    height: 50px !important;
+    height: 52px !important;
+  }
+
+  .ant-input-affix-wrapper {
+    background-color: var(--second-contrast);
+    border: 1px solid var(--second-contrast);
+    padding: 0 15px 0 15px;
+  }
+
+  .ant-input-clear-icon {
+    font-size: 18px;
+    color: var(--main-color);
+
+    &:hover {
+      color: var(--primary);
+    }
   }
 `;
 
