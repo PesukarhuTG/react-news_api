@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from './Card';
+import { getNews } from '../services/getDataApi';
 
 interface Article {
   source?: {
@@ -34,11 +35,9 @@ class CardsAlbum extends React.Component<ArticleList, State> {
   }
 
   componentDidMount() {
-    fetch(`https://newsapi.org/v2/everything?q=mobile&apiKey=8da7981f38cd47dda2ae9e2629b2a9a2`)
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({ news: json.articles });
-      });
+    getNews().then((resp) => {
+      this.setState({ news: resp.articles });
+    });
   }
 
   render() {
