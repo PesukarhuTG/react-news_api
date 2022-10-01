@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from './Card';
-import { getNews } from '../services/getDataApi';
+import { getNews, searchNews } from '../services/getDataApi';
 
 interface Article {
   source?: {
@@ -35,9 +35,17 @@ class CardsAlbum extends React.Component<ArticleList, State> {
   }
 
   componentDidMount() {
-    getNews().then((resp) => {
-      this.setState({ news: resp.articles });
-    });
+    const value = localStorage.getItem('searchData');
+
+    if (value) {
+      searchNews(value).then((resp) => {
+        this.setState({ news: resp.articles });
+      });
+    } else {
+      getNews().then((resp) => {
+        this.setState({ news: resp.articles });
+      });
+    }
   }
 
   render() {

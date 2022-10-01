@@ -17,6 +17,6 @@ export const getNews = async () => {
 };
 
 export const searchNews = async (query: string) => {
-  const url = `${BASE_URL}everything?q=${query}&apiKey=${API_KEY}`;
+  const url = `${BASE_URL}everything?searchIn=title&q=${query}&apiKey=${API_KEY}`;
   return await getData(url);
 };

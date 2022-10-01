@@ -21,7 +21,9 @@ class SearchPanel extends React.Component {
   }
 
   componentDidUpdate(): void {
-    localStorage.setItem('searchData', this.state.value); //if we clear input via clear icon
+    if (this.state.value === '') {
+      localStorage.setItem('searchData', this.state.value); //if we clear input via clear icon
+    }
   }
 
   componentWillUnmount(): void {

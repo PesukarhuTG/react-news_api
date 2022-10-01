@@ -67,13 +67,15 @@ const Item = styled.li`
 `;
 
 const Title = styled.p`
+  max-height: 50px;
+  height: 100%;
   font-size: 18px;
   color: var(--primary);
   margin: 0 10px;
   text-transform: uppercase;
 
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
@@ -117,7 +119,7 @@ const Author = styled.p`
 const CardImage = styled.div`
   display: block;
   width: 100%;
-  height: 200px;
+  height: 265px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
