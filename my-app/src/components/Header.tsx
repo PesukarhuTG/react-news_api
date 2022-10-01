@@ -6,7 +6,7 @@ class Header extends React.Component {
   render() {
     return (
       <AppHeader>
-        <HeaderLogo to="/">RACOON cinema</HeaderLogo>
+        <HeaderLogo to="/">RACOON digest</HeaderLogo>
 
         <HeaderNav>
           <HeaderNavItem to="/" label="Home" />

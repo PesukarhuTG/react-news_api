@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, SearchPanel } from 'components';
+import { Layout, SearchPanel, CardsAlbum } from 'components';
 import styled from 'styled-components';
 
 class MainPage extends React.Component {
@@ -7,29 +7,21 @@ class MainPage extends React.Component {
     return (
       <Layout>
         <SearchPanel />
-        <HeadlingOne>The best movies</HeadlingOne>
-        <HeadlingSecond>on Racoon cinema</HeadlingSecond>
+        <Headling>Hot news on Racoon digest</Headling>
+        <CardsAlbum />
       </Layout>
     );
   }
 }
 
-const HeadlingOne = styled.p`
-  text-align: left;
+const Headling = styled.p`
+  margin: 20px 0 30px;
+  text-align: center;
   font-size: 50px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--primary);
-  opacity: 0.2;
-`;
-
-const HeadlingSecond = styled.p`
-  text-align: right;
-  font-size: 50px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--primary);
-  opacity: 0.2;
+  opacity: 0.4;
 `;
 
 export default MainPage;
