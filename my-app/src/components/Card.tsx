@@ -29,18 +29,19 @@ class Card extends React.Component<CardProps> {
   }
 
   render() {
+    const { author, description, publishedAt, title, urlToImage } = this.props;
     return (
       <Item>
         <CardImage
           style={{
-            backgroundImage: `url(${this.props.urlToImage}`,
+            backgroundImage: `url(${urlToImage}`,
           }}
         />
-        <Title>{this.props.title}</Title>
-        <Description>{this.props.description}</Description>
+        <Title>{title}</Title>
+        <Description>{description}</Description>
         <PublishInfo>
-          <NewsDate>{this.props.publishedAt.slice(0, 10)}</NewsDate>
-          <Author>{this.props.author}</Author>
+          <NewsDate>{publishedAt.slice(0, 10)}</NewsDate>
+          <Author>{author}</Author>
         </PublishInfo>
       </Item>
     );
