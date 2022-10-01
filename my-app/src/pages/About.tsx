@@ -1,19 +1,45 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Layout } from '../components';
 
 class About extends React.Component {
   render() {
     return (
       <Layout>
-        <h2>About us</h2>
-        <p>
-          About us: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam vitae
-          tempora nesciunt qui nobis corrupti ut facilis vel necessitatibus itaque, consequuntur rem
-          beatae commodi illum odio quis soluta ducimus incidunt!
-        </p>
+        <Wrapper>
+          <Title>About us</Title>
+          <Description>
+            <b>Racoon news</b>: it is the latest breaking news and information on the top stories,
+            weather, business, entertainment, politics, and more.
+          </Description>
+          <PrimaryText>You do not miss anything!</PrimaryText>
+        </Wrapper>
       </Layout>
     );
   }
 }
+
+const Wrapper = styled.div`
+  margin: 0 auto;
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+`;
+
+const Description = styled.p`
+  margin-top: 30px;
+  text-align: center;
+  font-size: 18px;
+`;
+
+const PrimaryText = styled.p`
+  margin-top: 30px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+`;
 
 export default About;
