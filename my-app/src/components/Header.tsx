@@ -1,62 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+//import { Link, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class Header extends React.Component {
+  activeStyle = {
+    color: 'var(--primary)',
+  };
+
   render() {
     return (
       <AppHeader>
-        <HeaderLogo to="/">RACOON digest</HeaderLogo>
+        <NavLink
+          to="/"
+          style={{ color: 'var(--primary)', fontSize: '26px', fontWeight: 700, opacity: 0.6 }}
+        >
+          RACOON digest
+        </NavLink>
 
         <HeaderNav>
-          <HeaderNavItem to="/" label="Home" />
-          <HeaderNavItem to="/about" label="About" />
+          <NavLink to="/" style={({ isActive }) => (isActive ? this.activeStyle : undefined)} end>
+            Home
+          </NavLink>
+          <NavLink to="/about" style={({ isActive }) => (isActive ? this.activeStyle : undefined)}>
+            About
+          </NavLink>
         </HeaderNav>
       </AppHeader>
     );
   }
 }
 
-const HeaderLink = styled(Link)<{
-  $active: boolean;
-}>`
-  color: ${({ $active }) => ($active ? 'var(--primary)' : 'var(--main-color)')} !important;
-  transition: all 0.4s ease;
-  &:hover {
-    color: var(--primary) !important;
-  }
-`;
-
-interface HeaderNavItemProps {
-  to: string;
-  label: string;
-}
-
-const HeaderNavItem: React.FC<HeaderNavItemProps> = ({ to, label }) => {
-  const { pathname } = useLocation();
-
-  return (
-    <HeaderLink to={to} $active={to === pathname}>
-      {label}
-    </HeaderLink>
-  );
-};
-
 const AppHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-`;
-
-const HeaderLogo = styled(Link)`
-  color: var(--main-color);
-  font-size: 24px;
-  font-weight: 700;
-  transition: all 0.4s ease;
-  &:hover {
-    color: var(--primary);
-  }
 `;
 
 const HeaderNav = styled.nav`

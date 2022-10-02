@@ -17,11 +17,11 @@ class MainPage extends React.Component {
 const Headling = styled.p`
   margin: 20px 0 30px;
   text-align: center;
-  font-size: 50px;
+  font-size: 36px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--primary);
-  opacity: 0.4;
+  opacity: 0.6;
 `;
 
 export default MainPage;
