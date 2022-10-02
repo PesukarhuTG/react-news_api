@@ -18,10 +18,19 @@ class Header extends React.Component {
         </NavLink>
 
         <HeaderNav>
-          <NavLink to="/" style={({ isActive }) => (isActive ? this.activeStyle : undefined)} end>
+          <NavLink
+            to="/"
+            style={({ isActive }) => (isActive ? this.activeStyle : undefined)}
+            data-testid="mainpage-link"
+            end
+          >
             Home
           </NavLink>
-          <NavLink to="/about" style={({ isActive }) => (isActive ? this.activeStyle : undefined)}>
+          <NavLink
+            to="/about"
+            style={({ isActive }) => (isActive ? this.activeStyle : undefined)}
+            data-testid="aboutpage-link"
+          >
             About
           </NavLink>
         </HeaderNav>

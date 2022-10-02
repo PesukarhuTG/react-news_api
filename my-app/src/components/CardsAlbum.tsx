@@ -49,12 +49,17 @@ class CardsAlbum extends React.Component<ArticleList, State> {
   }
 
   render() {
-    const data = this.state.news;
-    data.length = 21;
+    const { news } = this.state;
+
+    if (!news.length) {
+      return <LoadMessage>Data is preparing...</LoadMessage>;
+    }
+
+    news.length = 21;
 
     return (
       <Album>
-        {data.map(
+        {news.map(
           ({ author, publishedAt, description, urlToImage, title }: Article, index: number) => {
             return (
               <Card
@@ -81,6 +86,11 @@ const Album = styled.div`
   justify-content: space-between;
   gap: 20px;
   margin-bottom: 50px;
+`;
+
+const LoadMessage = styled.p`
+  text-align: center;
+  padding: 20px 0;
 `;
 
 export default CardsAlbum;

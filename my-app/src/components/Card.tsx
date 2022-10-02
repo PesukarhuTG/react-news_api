@@ -31,7 +31,7 @@ class Card extends React.Component<CardProps> {
   render() {
     const { author, description, publishedAt, title, urlToImage } = this.props;
     return (
-      <Item>
+      <Item data-testid="card-item">
         <CardImage
           style={{
             backgroundImage: `url(${urlToImage}`,
