@@ -1,4 +1,5 @@
-const API_KEY = '8da7981f38cd47dda2ae9e2629b2a9a2';
+//const API_KEY = '8da7981f38cd47dda2ae9e2629b2a9a2';
+const API_KEY = '15a43de0072f430ca5b8ea4bdcc6d11a';
 const BASE_URL = 'https://newsapi.org/v2/';
 
 const getData = (url: string) =>
@@ -12,7 +13,7 @@ const getData = (url: string) =>
     .catch((err) => console.error(err));
 
 export const getNews = async () => {
-  const url = `${BASE_URL}everything?q=cat&apiKey=${API_KEY}`;
+  const url = `${BASE_URL}top-headlines?country=us&apiKey=${API_KEY}`;
   return await getData(url);
 };
 

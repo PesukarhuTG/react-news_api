@@ -1,48 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-
-interface CardProps {
-  source?: {
-    id: string;
-    name: string;
-  };
-
-  author: string;
-  title: string;
-  description: string;
-  url?: string;
-  urlToImage: string;
-  publishedAt: string;
-}
+import CardProps from '../types/Card';
 
 class Card extends React.Component<CardProps> {
   constructor(props: CardProps) {
     super(props);
-
-    this.state = {
-      author: this.props.author,
-      description: this.props.description,
-      publishedAt: this.props.publishedAt,
-      title: this.props.title,
-      urlToImage: this.props.urlToImage,
-    };
   }
 
   render() {
     const { author, description, publishedAt, title, urlToImage } = this.props;
+
     return (
       <Item data-testid="card-item">
         <CardImage
           style={{
-            backgroundImage: `url(${urlToImage}`,
+            backgroundImage: `url(${urlToImage || '../assets/img/no-poster.jpg'}`,
           }}
         />
         <Title>{title}</Title>
-        <Description>{description}</Description>
-        <PublishInfo>
-          <NewsDate>{publishedAt.slice(0, 10)}</NewsDate>
-          <Author>{author}</Author>
-        </PublishInfo>
+        <Description>{description || 'Sorry, there is no any description'}</Description>
+        <NewsDate>Data: {publishedAt.slice(0, 10)}</NewsDate>
+        <Author>Author: {author || 'unnamed'}</Author>
       </Item>
     );
   }
@@ -52,7 +30,7 @@ const Item = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 15px;
+  gap: 10px;
   position: relative;
   padding-bottom: 10px;
   width: 100%;
@@ -93,24 +71,20 @@ const Description = styled.p`
   font-size: 12px;
 `;
 
-const PublishInfo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 10px 10px 0;
-`;
-
 const NewsDate = styled.p`
-  width: 47%;
   display: block;
+  margin: 0 10px;
   font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-top: 20px;
+  border-top: 1px dotted var(--main-color);
 `;
 
 const Author = styled.p`
   display: -webkit-box;
+  margin: 0 10px;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -121,6 +95,7 @@ const CardImage = styled.div`
   display: block;
   width: 100%;
   height: 265px;
+  background-image: url('../assets/img/no-poster.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

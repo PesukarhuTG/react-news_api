@@ -13,17 +13,10 @@ describe('Card tests', () => {
       urlToImage:
         'https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg',
     };
-    render(
-      <Card
-        author={fakeData.author}
-        publishedAt={fakeData.publishedAt}
-        description={fakeData.description}
-        urlToImage={fakeData.urlToImage}
-        title={fakeData.title}
-        key={5}
-      />
-    );
+    render(<Card {...fakeData} key={5} />);
 
+    const text = screen.getByText(/Daily hot news/i);
+    expect(text).toBeInTheDocument();
     expect(screen.getByTestId('card-item')).toBeInTheDocument();
   });
 });

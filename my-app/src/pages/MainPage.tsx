@@ -1,14 +1,36 @@
 import React from 'react';
 import { Layout, SearchPanel, CardsAlbum } from 'components';
 import styled from 'styled-components';
+import { getNews, searchNews } from '../services/getDataApi';
 
 class MainPage extends React.Component {
+  state = {
+    value: localStorage.getItem('searchData') || '',
+    news: [],
+  };
+
+  checkData() {
+    if (this.state.value) {
+      searchNews(this.state.value).then((resp) => {
+        this.setState({ news: resp.articles });
+      });
+    } else {
+      getNews().then((resp) => {
+        this.setState({ news: resp.articles });
+      });
+    }
+  }
+
+  componentDidMount(): void {
+    this.checkData();
+  }
+
   render() {
     return (
       <Layout>
         <SearchPanel />
         <Headling>Hot news on Racoon digest</Headling>
-        <CardsAlbum />
+        <CardsAlbum cards={this.state.news} />
       </Layout>
     );
   }
