@@ -9,7 +9,7 @@ interface LayoutProps {
 class Layout extends React.Component<LayoutProps> {
   render() {
     return (
-      <Container>
+      <Container data-testid="layout-container">
         {<Header />}
         {this.props.children}
       </Container>
