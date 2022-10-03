@@ -34,36 +34,36 @@ describe('Header tests', () => {
     expect(nav).toBeInTheDocument();
   });
 
-  test('there is a Logo element in Header', async () => {
+  test('there is a Logo element in Header', () => {
     render(
       <BrowserRouter>
         <Header />
       </BrowserRouter>
     );
 
-    const logo = await screen.findByText(/RACOON digest/);
+    const logo = screen.getByText(/RACOON digest/);
     expect(logo).toBeInTheDocument();
   });
 
-  test('there is a Home element in Header', async () => {
+  test('there is a Home element in Header', () => {
     render(
       <BrowserRouter>
         <Header />
       </BrowserRouter>
     );
 
-    const element = await screen.findByText(/Home/);
+    const element = screen.getByText(/Home/);
     expect(element).toBeInTheDocument();
   });
 
-  test('there is an About element in Header', async () => {
+  test('there is an About element in Header', () => {
     render(
       <BrowserRouter>
         <Header />
       </BrowserRouter>
     );
 
-    const element = await screen.findByText(/About/);
+    const element = screen.getByText(/About/);
     expect(element).toBeInTheDocument();
   });
 });

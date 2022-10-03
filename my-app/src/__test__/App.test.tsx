@@ -7,25 +7,25 @@ import { MainPage, About, NotFound } from '../pages';
 import App from '../App';
 
 describe('App tests', () => {
-  test('render /home link', async () => {
+  test('render /home link', () => {
     render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
     );
 
-    const linkElement = await screen.findByText(/home/i);
+    const linkElement = screen.getByText(/home/i);
     expect(linkElement).toBeInTheDocument();
   });
 
-  test('render /about link', async () => {
+  test('render /about link', () => {
     render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
     );
 
-    const linkElement = await screen.findByText(/about/i);
+    const linkElement = screen.getByText(/about/i);
     expect(linkElement).toBeInTheDocument();
   });
 
