@@ -3,24 +3,19 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 class Header extends React.Component {
-  activeStyle = {
-    color: 'var(--primary)',
-  };
+  activeClassName = 'active-link';
 
   render() {
     return (
       <AppHeader>
-        <NavLink
-          to="/"
-          style={{ color: 'var(--primary)', fontSize: '26px', fontWeight: 700, opacity: 0.6 }}
-        >
+        <NavLink to="/" className={'logo'}>
           RACOON digest
         </NavLink>
 
         <HeaderNav>
           <NavLink
             to="/"
-            style={({ isActive }) => (isActive ? this.activeStyle : undefined)}
+            className={({ isActive }) => (isActive ? this.activeClassName : undefined)}
             data-testid="mainpage-link"
             end
           >
@@ -28,7 +23,7 @@ class Header extends React.Component {
           </NavLink>
           <NavLink
             to="/about"
-            style={({ isActive }) => (isActive ? this.activeStyle : undefined)}
+            className={({ isActive }) => (isActive ? this.activeClassName : undefined)}
             data-testid="aboutpage-link"
           >
             About
