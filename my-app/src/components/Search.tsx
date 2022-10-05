@@ -4,7 +4,11 @@ import { Input } from 'antd';
 
 const { Search } = Input;
 
-class SearchPanel extends React.Component {
+interface State {
+  value?: string;
+}
+
+class SearchPanel extends React.Component<State> {
   state = {
     value: '',
   };

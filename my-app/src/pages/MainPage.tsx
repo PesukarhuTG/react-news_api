@@ -2,8 +2,14 @@ import React from 'react';
 import { Layout, SearchPanel, CardsAlbum } from 'components';
 import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
+import CardProps from '../types/Card';
 
-class MainPage extends React.Component {
+interface State {
+  value?: string;
+  news?: CardProps[];
+}
+
+class MainPage extends React.Component<State> {
   state = {
     value: localStorage.getItem('searchData') || '',
     news: [],
