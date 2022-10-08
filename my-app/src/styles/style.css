@@ -83,3 +83,98 @@ button[disabled]:hover {
 .active-link {
   color: var(--primary);
 }
+
+/* FORM CSS */
+
+form {
+  margin: 20px auto;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-name {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.remember-name {
+  font-size: 14px;
+}
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border: 0;
+}
+
+input.input-field {
+  width: 180px;
+  font-size: 14px;
+  background-color: var(--second-contrast);
+}
+
+input.input-file {
+  font-size: 14px;
+}
+
+select.input-city {
+  width: 180px;
+  padding: 5px 0;
+  font-size: 14px;
+  background-color: var(--second-contrast);
+}
+
+input[type='checkbox'] {
+  margin-left: auto;
+}
+
+.btn-submit {
+  background-color: var(--primary);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  font-size: 14px;
+  border: 0;
+  padding: 10px;
+}
+
+.form-wrapper {
+  display: flex;
+  padding: 10px 0;
+  gap: 30px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.input-wrapper-gorizont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  gap: 10px;
+}
+
+.genders-wrapper {
+  display: flex;
+}
+
+.gender-name {
+  padding-left: 5px;
+  padding-right: 10px;
+  font-size: 14px;
+}
