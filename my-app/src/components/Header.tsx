@@ -28,6 +28,13 @@ class Header extends React.Component {
           >
             About
           </NavLink>
+          <NavLink
+            to="/contacts"
+            className={({ isActive }) => (isActive ? this.activeClassName : undefined)}
+            data-testid="contactspage-link"
+          >
+            Contacts
+          </NavLink>
         </HeaderNav>
       </AppHeader>
     );

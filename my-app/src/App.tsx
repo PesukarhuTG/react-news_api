@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { MainPage, About, NotFound } from './pages';
+import { MainPage, About, NotFound, Contacts } from './pages';
 
 class App extends React.Component {
   render() {
@@ -8,6 +8,7 @@ class App extends React.Component {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contacts" element={<Contacts />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     );
