@@ -47,11 +47,12 @@ function LoginForm({ onSubmit }: LoginFormProps) {
         <label className="input-wrapper">
           <span className="input-name">Choose a city</span>
           <select className="input-city" name="city">
-            <option value="spb">Saint-Petersbutg</option>
-            <option value="msc">Moscow</option>
-            <option value="vzh">Voronezh</option>
-            <option value="ptz">Petrozavods</option>
-            <option value="other">...other city</option>
+            <option value="no city"> </option>
+            <option value="Saint-Petersbutg">Saint-Petersbutg</option>
+            <option value="Moscow">Moscow</option>
+            <option value="Voronezh">Voronezh</option>
+            <option value="Petrozavodsk">Petrozavodsk</option>
+            <option value="-">...other city</option>
           </select>
         </label>
         <label className="input-wrapper">
