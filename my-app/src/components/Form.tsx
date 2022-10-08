@@ -57,7 +57,7 @@ function LoginForm({ onSubmit }: LoginFormProps) {
         <label className="input-wrapper">
           <span className="input-name">Gender</span>
           <div className="genders-wrapper">
-            <input type="radio" id="man" name="gender" value="man" checked />
+            <input type="radio" id="man" name="gender" value="man" onChange={() => {}} checked />
             <label className="gender-name" htmlFor="man">
               man
             </label>
