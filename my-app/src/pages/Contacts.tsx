@@ -13,7 +13,7 @@ interface LocalProps {
   birthday: string;
   city: string;
   gender: string;
-  file: string;
+  file: File;
   remember: boolean;
   [key: string]: any;
 }

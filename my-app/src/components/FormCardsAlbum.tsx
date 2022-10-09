@@ -33,7 +33,7 @@ const Album = styled.div`
   margin: 20px auto;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   justify-content: space-between;
   gap: 20px;
   margin-bottom: 50px;

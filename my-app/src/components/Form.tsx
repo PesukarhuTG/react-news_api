@@ -16,6 +16,7 @@ interface FormFields {
 
 interface State {
   disabled: boolean;
+  selectedFile: any;
 }
 
 class LoginForm extends React.Component<LoginFormProps, State> {
@@ -23,10 +24,18 @@ class LoginForm extends React.Component<LoginFormProps, State> {
     super(props);
     this.state = {
       disabled: true,
+      selectedFile: null,
     };
   }
 
-  handleSumbit: React.FormEventHandler<HTMLFormElement & FormFields> = (event) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
+    if (e.target.files !== null) {
+      this.setState({ selectedFile: e.target.files[0] });
+    }
+  };
+
+  handleSubmit: React.FormEventHandler<HTMLFormElement & FormFields> = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     const { name, birthday, city, gender, file, remember } = form;
@@ -36,7 +45,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
       birthday: birthday.value,
       city: city.value,
       gender: gender.value,
-      file: file.value,
+      file: this.state.selectedFile,
       remember: remember.checked,
     });
 
@@ -61,7 +70,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
 
   render() {
     return (
-      <form onSubmit={this.handleSumbit}>
+      <form onSubmit={this.handleSubmit}>
         <div className="form-wrapper">
           <label className="input-wrapper">
             <span className="input-name">Name</span>
@@ -120,7 +129,13 @@ class LoginForm extends React.Component<LoginFormProps, State> {
 
         <label className="input-wrapper">
           <span className="input-name">Upload a file</span>
-          <input className="input-file" name="file" type="file" />
+          <input
+            className="input-file"
+            name="file"
+            type="file"
+            accept="image/*, .png, .jpg"
+            onChange={this.handleChange}
+          />
         </label>
 
         <label className="input-wrapper-gorizont">

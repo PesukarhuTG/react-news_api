@@ -10,11 +10,14 @@ class FormCard extends React.Component<FormProps> {
   render() {
     const { name, birthday, city, gender, file } = this.props;
 
+    const blob = new Blob([file]);
+    const url = URL.createObjectURL(blob);
+
     return (
       <Item data-testid="form-card">
         <CardImage
           style={{
-            backgroundImage: `url(${file || '../assets/img/no-poster.jpg'}`,
+            backgroundImage: `url(${url})`,
           }}
         />
         <Description>
@@ -82,6 +85,7 @@ const CardImage = styled.div`
   display: block;
   width: 100px;
   height: 100px;
+  margin: 0 auto;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
