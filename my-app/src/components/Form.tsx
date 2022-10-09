@@ -28,6 +28,18 @@ function LoginForm({ onSubmit }: LoginFormProps) {
       file: file.value,
       remember: remember.checked,
     });
+
+    clearForm([name, birthday, city, gender, file, remember]);
+  };
+
+  const clearForm = (prop: Array<HTMLInputElement>) => {
+    prop.forEach((item) => {
+      if (item.type === 'checkbox') {
+        item.checked = false;
+      } else {
+        item.value = '';
+      }
+    });
   };
 
   return (

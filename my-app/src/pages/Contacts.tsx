@@ -35,13 +35,26 @@ class Contacts extends React.Component<State> {
     } else {
       this.setState({ list: [formFields] });
     }
+
+    setTimeout(() => alert('Your data has been saved'), 300);
   };
+
+  componentDidMount(): void {
+    console.log('mount');
+  }
 
   componentDidUpdate(): void {
     localStorage.setItem('persons', JSON.stringify(this.state.list));
+    console.log('update');
+  }
+
+  componentWillUnmount(): void {
+    localStorage.removeItem('persons');
+    console.log('unmount');
   }
 
   render() {
+    console.log('render');
     return (
       <Layout>
         <Wrapper>
