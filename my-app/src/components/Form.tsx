@@ -58,7 +58,7 @@ function LoginForm({ onSubmit }: LoginFormProps) {
       <div className="form-wrapper">
         <label className="input-wrapper">
           <span className="input-name">Choose a city</span>
-          <select className="input-city" name="city">
+          <select className="input-city" name="city" required>
             <option value="no city"> </option>
             <option value="Saint-Petersbutg">Saint-Petersbutg</option>
             <option value="Moscow">Moscow</option>
@@ -89,7 +89,7 @@ function LoginForm({ onSubmit }: LoginFormProps) {
       </label>
 
       <label className="input-wrapper-gorizont">
-        <input name="remember" type="checkbox" />
+        <input name="remember" type="checkbox" required />
         <span className="remember-name">I consent to use my personal data</span>
       </label>
 

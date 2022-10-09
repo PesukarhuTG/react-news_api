@@ -5,6 +5,7 @@ import { Layout, LoginForm, FormCardsAlbum } from '../components';
 
 interface State {
   list?: FormProps[];
+  message?: string;
 }
 
 interface LocalProps {
@@ -20,6 +21,7 @@ interface LocalProps {
 class Contacts extends React.Component<State> {
   state = {
     list: JSON.parse(localStorage.getItem('persons') as string) || [],
+    message: '',
   };
 
   onSubmit = (formFields: FormProps) => {
@@ -36,7 +38,8 @@ class Contacts extends React.Component<State> {
       this.setState({ list: [formFields] });
     }
 
-    setTimeout(() => alert('Your data has been saved'), 300);
+    this.setState({ message: 'Your data has been saved!' });
+    setTimeout(() => this.setState({ message: '' }), 1500);
   };
 
   componentDidMount(): void {
@@ -61,6 +64,7 @@ class Contacts extends React.Component<State> {
           <Title>Contact us via form</Title>
           <LoginForm onSubmit={this.onSubmit} />
         </Wrapper>
+        <Message>{this.state.message}</Message>
         <FormCardsAlbum list={this.state.list} />
       </Layout>
     );
@@ -75,6 +79,14 @@ const Title = styled.h2`
   text-align: center;
   font-size: 30px;
   font-weight: 700;
+`;
+
+const Message = styled.p`
+  height: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
 `;
 
 export default Contacts;
