@@ -29,7 +29,6 @@ class LoginForm extends React.Component<LoginFormProps, State> {
   }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
     if (e.target.files !== null) {
       this.setState({ selectedFile: e.target.files[0] });
     }
@@ -40,12 +39,15 @@ class LoginForm extends React.Component<LoginFormProps, State> {
     const form = event.currentTarget;
     const { name, birthday, city, gender, file, remember } = form;
 
+    const blob = new Blob([this.state.selectedFile]);
+    const url = URL.createObjectURL(blob);
+
     this.props.onSubmit({
       name: name.value,
       birthday: birthday.value,
       city: city.value,
       gender: gender.value,
-      file: this.state.selectedFile,
+      file: url,
       remember: remember.checked,
     });
 
@@ -62,6 +64,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
     });
 
     this.setState({ disabled: true });
+    this.setState({ selectedFile: null });
   };
 
   setDisabled = (value: string) => {
@@ -108,7 +111,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
               <option value="Moscow">Moscow</option>
               <option value="Voronezh">Voronezh</option>
               <option value="Petrozavodsk">Petrozavodsk</option>
-              <option value="-">...other city</option>
+              <option value="other city">...other city</option>
             </select>
           </label>
           <label className="input-wrapper">

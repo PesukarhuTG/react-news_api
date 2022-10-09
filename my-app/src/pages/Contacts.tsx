@@ -13,7 +13,7 @@ interface LocalProps {
   birthday: string;
   city: string;
   gender: string;
-  file: File;
+  file: File | string;
   remember: boolean;
   [key: string]: any;
 }
@@ -42,22 +42,15 @@ class Contacts extends React.Component<State> {
     setTimeout(() => this.setState({ message: '' }), 1500);
   };
 
-  componentDidMount(): void {
-    console.log('mount');
-  }
-
   componentDidUpdate(): void {
     localStorage.setItem('persons', JSON.stringify(this.state.list));
-    console.log('update');
   }
 
   componentWillUnmount(): void {
     localStorage.removeItem('persons');
-    console.log('unmount');
   }
 
   render() {
-    console.log('render');
     return (
       <Layout>
         <Wrapper>
