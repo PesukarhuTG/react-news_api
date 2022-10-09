@@ -1,28 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormProps from '../types/Form';
 
 interface LoginFormProps {
   onSubmit: (data: FormProps) => void;
 }
 
-type FormFields = {
+interface FormFields {
   name: HTMLInputElement;
   birthday: HTMLInputElement;
   city: HTMLInputElement;
   gender: HTMLInputElement;
   file: HTMLInputElement;
   remember: HTMLInputElement;
-};
+}
 
-function LoginForm({ onSubmit }: LoginFormProps) {
-  const [active, setActive] = useState(true);
+interface State {
+  disabled: boolean;
+}
 
-  const handleSumbit: React.FormEventHandler<HTMLFormElement & FormFields> = (event) => {
+class LoginForm extends React.Component<LoginFormProps, State> {
+  constructor(props: LoginFormProps) {
+    super(props);
+    this.state = {
+      disabled: true,
+    };
+  }
+
+  handleSumbit: React.FormEventHandler<HTMLFormElement & FormFields> = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     const { name, birthday, city, gender, file, remember } = form;
 
-    onSubmit({
+    this.props.onSubmit({
       name: name.value,
       birthday: birthday.value,
       city: city.value,
@@ -31,10 +40,10 @@ function LoginForm({ onSubmit }: LoginFormProps) {
       remember: remember.checked,
     });
 
-    clearForm([name, birthday, city, gender, file, remember]);
+    this.clearForm([name, birthday, city, gender, file, remember]);
   };
 
-  const clearForm = (prop: Array<HTMLInputElement>) => {
+  clearForm = (prop: Array<HTMLInputElement>) => {
     prop.forEach((item) => {
       if (item.type === 'checkbox') {
         item.checked = false;
@@ -42,85 +51,89 @@ function LoginForm({ onSubmit }: LoginFormProps) {
         item.value = '';
       }
     });
+
+    this.setState({ disabled: true });
   };
 
-  const checkActive = (value: string) => {
-    value.length !== 0 ? setActive(false) : setActive(true);
+  setDisabled = (value: string) => {
+    value.length !== 0 ? this.setState({ disabled: false }) : this.setState({ disabled: true });
   };
 
-  return (
-    <form onSubmit={handleSumbit}>
-      <div className="form-wrapper">
+  render() {
+    return (
+      <form onSubmit={this.handleSumbit}>
+        <div className="form-wrapper">
+          <label className="input-wrapper">
+            <span className="input-name">Name</span>
+            <input
+              className="input-field"
+              name="name"
+              type="text"
+              onChange={(e) => this.setDisabled(e.target.value)}
+              required
+            />
+          </label>
+          <label className="input-wrapper">
+            <span className="input-name">Birthday</span>
+            <input
+              className="input-field"
+              name="birthday"
+              type="date"
+              onChange={(e) => this.setDisabled(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+
+        <div className="form-wrapper">
+          <label className="input-wrapper">
+            <span className="input-name">Choose a city</span>
+            <select
+              className="input-city"
+              name="city"
+              onChange={(e) => this.setDisabled(e.target.value)}
+              required
+            >
+              <option value="" />
+              <option value="Saint-Petersbutg">Saint-Petersbutg</option>
+              <option value="Moscow">Moscow</option>
+              <option value="Voronezh">Voronezh</option>
+              <option value="Petrozavodsk">Petrozavodsk</option>
+              <option value="-">...other city</option>
+            </select>
+          </label>
+          <label className="input-wrapper">
+            <span className="input-name">Gender</span>
+            <div className="genders-wrapper">
+              <input type="radio" id="man" name="gender" value="man" defaultChecked />
+              <label className="gender-name" htmlFor="man">
+                man
+              </label>
+
+              <input type="radio" id="woman" name="gender" value="woman" />
+              <label className="gender-name" htmlFor="woman">
+                woman
+              </label>
+            </div>
+          </label>
+        </div>
+
         <label className="input-wrapper">
-          <span className="input-name">Name</span>
-          <input
-            className="input-field"
-            name="name"
-            type="text"
-            onChange={(e) => checkActive(e.target.value)}
-            required
-          />
+          <span className="input-name">Upload a file</span>
+          <input className="input-file" name="file" type="file" />
         </label>
-        <label className="input-wrapper">
-          <span className="input-name">Birthday</span>
-          <input
-            className="input-field"
-            name="birthday"
-            type="date"
-            onChange={(e) => checkActive(e.target.value)}
-            required
-          />
+
+        <label className="input-wrapper-gorizont">
+          <input name="remember" type="checkbox" required />
+          <span className="remember-name">I consent to use my personal data</span>
         </label>
-      </div>
 
-      <div className="form-wrapper">
-        <label className="input-wrapper">
-          <span className="input-name">Choose a city</span>
-          <select
-            className="input-city"
-            name="city"
-            onChange={(e) => checkActive(e.target.value)}
-            required
-          >
-            <option value="" />
-            <option value="Saint-Petersbutg">Saint-Petersbutg</option>
-            <option value="Moscow">Moscow</option>
-            <option value="Voronezh">Voronezh</option>
-            <option value="Petrozavodsk">Petrozavodsk</option>
-            <option value="-">...other city</option>
-          </select>
-        </label>
-        <label className="input-wrapper">
-          <span className="input-name">Gender</span>
-          <div className="genders-wrapper">
-            <input type="radio" id="man" name="gender" value="man" defaultChecked />
-            <label className="gender-name" htmlFor="man">
-              man
-            </label>
-
-            <input type="radio" id="woman" name="gender" value="woman" />
-            <label className="gender-name" htmlFor="woman">
-              woman
-            </label>
-          </div>
-        </label>
-      </div>
-
-      <label className="input-wrapper">
-        <span className="input-name">Upload a file</span>
-        <input className="input-file" name="file" type="file" />
-      </label>
-
-      <label className="input-wrapper-gorizont">
-        <input name="remember" type="checkbox" required />
-        <span className="remember-name">I consent to use my personal data</span>
-      </label>
-
-      <button className="btn-submit" type="submit" disabled={active}>
-        Send my data
-      </button>
-    </form>
-  );
+        <button className="btn-submit" type="submit" disabled={this.state.disabled}>
+          Send my data
+        </button>
+      </form>
+    );
+  }
 }
 
 export default LoginForm;
