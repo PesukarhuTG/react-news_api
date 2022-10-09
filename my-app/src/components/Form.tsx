@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormProps from '../types/Form';
 
 interface LoginFormProps {
@@ -15,6 +15,8 @@ type FormFields = {
 };
 
 function LoginForm({ onSubmit }: LoginFormProps) {
+  const [active, setActive] = useState(true);
+
   const handleSumbit: React.FormEventHandler<HTMLFormElement & FormFields> = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -42,24 +44,45 @@ function LoginForm({ onSubmit }: LoginFormProps) {
     });
   };
 
+  const checkActive = (value: string) => {
+    value.length !== 0 ? setActive(false) : setActive(true);
+  };
+
   return (
     <form onSubmit={handleSumbit}>
       <div className="form-wrapper">
         <label className="input-wrapper">
           <span className="input-name">Name</span>
-          <input className="input-field" name="name" type="text" required />
+          <input
+            className="input-field"
+            name="name"
+            type="text"
+            onChange={(e) => checkActive(e.target.value)}
+            required
+          />
         </label>
         <label className="input-wrapper">
           <span className="input-name">Birthday</span>
-          <input className="input-field" name="birthday" type="date" required />
+          <input
+            className="input-field"
+            name="birthday"
+            type="date"
+            onChange={(e) => checkActive(e.target.value)}
+            required
+          />
         </label>
       </div>
 
       <div className="form-wrapper">
         <label className="input-wrapper">
           <span className="input-name">Choose a city</span>
-          <select className="input-city" name="city" required>
-            <option value="no city"> </option>
+          <select
+            className="input-city"
+            name="city"
+            onChange={(e) => checkActive(e.target.value)}
+            required
+          >
+            <option value="" />
             <option value="Saint-Petersbutg">Saint-Petersbutg</option>
             <option value="Moscow">Moscow</option>
             <option value="Voronezh">Voronezh</option>
@@ -93,7 +116,7 @@ function LoginForm({ onSubmit }: LoginFormProps) {
         <span className="remember-name">I consent to use my personal data</span>
       </label>
 
-      <button className="btn-submit" type="submit">
+      <button className="btn-submit" type="submit" disabled={active}>
         Send my data
       </button>
     </form>
