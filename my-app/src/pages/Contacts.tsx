@@ -8,47 +8,20 @@ interface State {
   message?: string;
 }
 
-interface LocalProps {
-  name: string;
-  birthday: string;
-  city: string;
-  gender: string;
-  file: File | string;
-  remember: boolean;
-  [key: string]: any;
-}
-
 class Contacts extends React.Component<State> {
   state = {
-    list: JSON.parse(localStorage.getItem('persons') as string) || [],
+    list: [],
     message: '',
   };
 
   onSubmit = (formFields: FormProps) => {
-    let dataLS: string;
-    let items: LocalProps[] = [];
-
-    if (localStorage.getItem('persons')) {
-      dataLS = localStorage.getItem('persons') as string;
-      items = JSON.parse(dataLS);
-
-      items.push(formFields);
-      this.setState({ list: items });
-    } else {
-      this.setState({ list: [formFields] });
-    }
+    const currentList = this.state.list as FormProps[];
+    currentList.push(formFields);
+    this.setState({ list: currentList });
 
     this.setState({ message: 'Your data has been saved!' });
     setTimeout(() => this.setState({ message: '' }), 1500);
   };
-
-  componentDidUpdate(): void {
-    localStorage.setItem('persons', JSON.stringify(this.state.list));
-  }
-
-  componentWillUnmount(): void {
-    localStorage.removeItem('persons');
-  }
 
   render() {
     return (
@@ -57,7 +30,7 @@ class Contacts extends React.Component<State> {
           <Title>Contact us via form</Title>
           <LoginForm onSubmit={this.onSubmit} />
         </Wrapper>
-        <Message>{this.state.message}</Message>
+        <Message data-testid="form-message">{this.state.message}</Message>
         <FormCardsAlbum list={this.state.list} />
       </Layout>
     );

@@ -30,7 +30,7 @@ class CardsAlbum extends React.Component<CardListProps> {
   }
 }
 
-const Album = styled.div`
+const Album = styled.ul`
   margin: 0 auto;
   width: 100%;
   display: grid;

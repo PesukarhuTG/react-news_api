@@ -23,6 +23,7 @@ describe('CardsAlbum tests', () => {
     ];
 
     render(<CardsAlbum cards={fakeData} />);
+    expect(screen.getByRole('list')).toBeInTheDocument();
     const text = await screen.findByText(/Hot cakes/i);
     expect(text).toBeInTheDocument();
   });

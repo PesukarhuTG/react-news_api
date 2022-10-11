@@ -73,7 +73,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} data-testid="form">
         <div className="form-wrapper">
           <label className="input-wrapper">
             <span className="input-name">Name</span>
@@ -81,6 +81,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
               className="input-field"
               name="name"
               type="text"
+              data-testid="input-fname"
               onChange={(e) => this.setDisabled(e.target.value)}
               required
             />
@@ -91,6 +92,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
               className="input-field"
               name="birthday"
               type="date"
+              data-testid="input-fdata"
               onChange={(e) => this.setDisabled(e.target.value)}
               required
             />
@@ -103,11 +105,12 @@ class LoginForm extends React.Component<LoginFormProps, State> {
             <select
               className="input-city"
               name="city"
+              data-testid="input-fcity"
               onChange={(e) => this.setDisabled(e.target.value)}
               required
             >
               <option value="" />
-              <option value="Saint-Petersbutg">Saint-Petersbutg</option>
+              <option value="Saint-Petersburg">Saint-Petersburg</option>
               <option value="Moscow">Moscow</option>
               <option value="Voronezh">Voronezh</option>
               <option value="Petrozavodsk">Petrozavodsk</option>
@@ -117,12 +120,25 @@ class LoginForm extends React.Component<LoginFormProps, State> {
           <label className="input-wrapper">
             <span className="input-name">Gender</span>
             <div className="genders-wrapper">
-              <input type="radio" id="man" name="gender" value="man" defaultChecked />
+              <input
+                type="radio"
+                id="man"
+                name="gender"
+                value="man"
+                data-testid="input-fgender-man"
+                defaultChecked
+              />
               <label className="gender-name" htmlFor="man">
                 man
               </label>
 
-              <input type="radio" id="woman" name="gender" value="woman" />
+              <input
+                type="radio"
+                id="woman"
+                name="gender"
+                value="woman"
+                data-testid="input-fgender-woman"
+              />
               <label className="gender-name" htmlFor="woman">
                 woman
               </label>
@@ -137,16 +153,22 @@ class LoginForm extends React.Component<LoginFormProps, State> {
             name="file"
             type="file"
             accept="image/*, .png, .jpg"
+            data-testid="input-file"
             onChange={this.handleChange}
           />
         </label>
 
         <label className="input-wrapper-gorizont">
-          <input name="remember" type="checkbox" required />
+          <input name="remember" type="checkbox" data-testid="input-faccept" />
           <span className="remember-name">I consent to use my personal data</span>
         </label>
 
-        <button className="btn-submit" type="submit" disabled={this.state.disabled}>
+        <button
+          className="btn-submit"
+          type="submit"
+          disabled={this.state.disabled}
+          data-testid="btn-submit"
+        >
           Send my data
         </button>
       </form>

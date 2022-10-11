@@ -18,7 +18,7 @@ describe('Search', () => {
   test('check input value', () => {
     render(<SearchPanel />);
 
-    const input = screen.getByPlaceholderText(/Search.../i);
+    const input = screen.getByTestId('input-search');
     expect(input).toContainHTML('');
     fireEvent.input(input, {
       target: { value: 'swimming' },

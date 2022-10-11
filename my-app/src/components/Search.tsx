@@ -40,6 +40,7 @@ class SearchPanel extends React.Component<State> {
         placeholder="Search..."
         onChange={(e) => this.onChange(e.target.value)}
         value={this.state.value}
+        data-testid="input-search"
         allowClear
         enterButton
       />
