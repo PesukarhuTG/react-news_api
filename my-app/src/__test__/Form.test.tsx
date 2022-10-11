@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { LoginForm } from '../components';
 
@@ -12,14 +11,7 @@ describe('Form tests', () => {
 
   test('render Form inputs on page', () => {
     render(<LoginForm onSubmit={() => {}} />);
-
-    expect(screen.getByTestId('input-fname')).toBeInTheDocument();
-    expect(screen.getByTestId('input-fdata')).toBeInTheDocument();
-    expect(screen.getByTestId('input-fcity')).toBeInTheDocument();
-    expect(screen.getByTestId('input-fgender-man')).toBeInTheDocument();
-    expect(screen.getByTestId('input-fgender-woman')).toBeInTheDocument();
     expect(screen.getByTestId('input-file')).toBeInTheDocument();
-    expect(screen.getByTestId('input-faccept')).toBeInTheDocument();
   });
 
   test('Form snapshot', () => {
@@ -30,25 +22,14 @@ describe('Form tests', () => {
   test('input name: check form value', () => {
     render(<LoginForm onSubmit={() => {}} />);
 
-    type TestElement = Document | Element | Window | Node;
-
-    function hasInputValue(e: TestElement, inputValue: string) {
-      return screen.getByDisplayValue(inputValue) === e;
-    }
-
-    const inputName = screen.getByTestId('input-fname');
-    fireEvent.change(inputName, { target: { value: 'Tatiana' } });
-    expect(hasInputValue(inputName, 'Tatiana')).toBe(true);
-  });
-
-  /*test('input name: check form value', () => {
-    render(<LoginForm onSubmit={() => {}} />);
-
-    const input = screen.getByRole('textbox');
+    const input = screen.getByTestId('input-fname');
     expect(input).toBeInTheDocument();
-    userEvent.type(input, 'abc');
-    expect(input).toHaveValue('abc');
-  });*/
+    expect(input).toContainHTML('');
+    fireEvent.input(input, {
+      target: { value: 'Tany' },
+    });
+    expect(input).toHaveValue('Tany');
+  });
 
   test('input radio: check render', () => {
     render(<LoginForm onSubmit={() => {}} />);
@@ -60,46 +41,57 @@ describe('Form tests', () => {
     expect(input[1].value).toBe('woman');
   });
 
-  /*test('input data: check render', () => {
+  test('input data: check render', () => {
     render(<LoginForm onSubmit={() => {}} />);
-    const input = screen.getByTestId('input-fdata') as HTMLInputElement;
-    expect(input).toBeInTheDocument();
-    userEvent.type(input, '01-01-2022');
-    expect(input.value).toBe('2022-01-01');
-  });*/
 
-  /*test('input file: check render', () => {
+    const input = screen.getByTestId('input-fdata');
+    expect(input).toBeInTheDocument();
+    fireEvent.input(input, {
+      target: { value: '2022-01-01' },
+    });
+    expect(input).toHaveValue('2022-01-01');
+  });
+
+  test('Upload Files', async () => {
     render(<LoginForm onSubmit={() => {}} />);
-    const input = screen.getByTestId('input-file') as HTMLInputElement;
-    expect(input).toBeInTheDocument();
 
-    const file = new File(['hello'], 'hello.png', { type: 'image/png' });
-    userEvent.upload(input, file);
-    expect(input.files!.item(0)).toStrictEqual(file);
-    expect(input.files).toHaveLength(1);
-  });*/
+    const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
+    const inputFile = screen.getByTestId('input-file') as HTMLInputElement;
 
-  /*test('input checkbox: check render', () => {
+    expect(inputFile).toBeInTheDocument();
+
+    await waitFor(() =>
+      fireEvent.change(inputFile, {
+        target: { files: [fakeFile] },
+      })
+    );
+
+    if (inputFile.files instanceof FileList) {
+      expect(inputFile.files[0]).toStrictEqual(fakeFile);
+    }
+  });
+
+  test('input checkbox: check render', () => {
     render(<LoginForm onSubmit={() => {}} />);
-    const input = screen.getByRole('checkbox') as HTMLInputElement;
-    expect(input).toBeInTheDocument();
-    userEvent.click(input);
-    expect(input).toBeChecked();
-    userEvent.click(input);
-    expect(input).not.toBeChecked();
-  });*/
+
+    const checkbox = screen.getByTestId('input-faccept');
+    expect(checkbox).toBeInTheDocument();
+    expect(checkbox).not.toBeChecked();
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
+  });
 
   test('select: check render', () => {
     render(<LoginForm onSubmit={() => {}} />);
-    const select = screen.getByRole('combobox') as HTMLSelectElement;
-    const selectValue = screen.getByRole('option', {
-      name: 'Voronezh',
-    }) as HTMLOptionElement;
-    expect(select).toBeInTheDocument();
 
+    const select = screen.getByTestId('input-fcity') as HTMLSelectElement;
+
+    expect(select).toBeInTheDocument();
     expect(screen.getAllByRole('option').length).toBe(6);
-    userEvent.selectOptions(select, selectValue);
-    expect(selectValue.selected).toBe(false);
+    fireEvent.change(select, {
+      target: { value: 'Saint-Petersburg' },
+    });
+    expect(screen.getByText('Saint-Petersburg')).toBeInTheDocument();
   });
 
   test('render submit button', () => {
