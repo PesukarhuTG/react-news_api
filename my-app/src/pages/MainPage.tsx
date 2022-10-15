@@ -15,7 +15,7 @@ class MainPage extends React.Component<State> {
     news: [],
   };
 
-  checkData() {
+  checkData(): void {
     if (this.state.value) {
       searchNews(this.state.value).then((resp) => {
         this.setState({ news: resp.articles });
@@ -31,10 +31,14 @@ class MainPage extends React.Component<State> {
     this.checkData();
   }
 
+  onSubmit = (data: CardProps[]): void => {
+    this.setState({ news: data });
+  };
+
   render() {
     return (
       <Layout>
-        <SearchPanel />
+        <SearchPanel onSearch={this.onSubmit} />
         <Headling>Hot news on Racoon digest</Headling>
         <CardsAlbum cards={this.state.news} />
       </Layout>
