@@ -41,10 +41,10 @@ describe('Form tests', () => {
     expect(input[1].value).toBe('woman');
   });
 
-  test('input data: check render', () => {
+  test('input date: check render', () => {
     render(<LoginForm onSubmit={() => {}} />);
 
-    const input = screen.getByTestId('input-fdata');
+    const input = screen.getByTestId('input-fdate');
     expect(input).toBeInTheDocument();
     fireEvent.input(input, {
       target: { value: '2022-01-01' },
@@ -52,7 +52,7 @@ describe('Form tests', () => {
     expect(input).toHaveValue('2022-01-01');
   });
 
-  test('Upload Files', async () => {
+  test('input file: upload file', async () => {
     render(<LoginForm onSubmit={() => {}} />);
 
     const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
@@ -68,6 +68,7 @@ describe('Form tests', () => {
 
     if (inputFile.files instanceof FileList) {
       expect(inputFile.files[0]).toStrictEqual(fakeFile);
+      expect(inputFile.files).toHaveLength(1);
     }
   });
 

@@ -37,7 +37,7 @@ Object {
             </span>
             <input
               class="input-field"
-              data-testid="input-fdata"
+              data-testid="input-fdate"
               name="birthday"
               required=""
               type="date"
@@ -206,7 +206,7 @@ Object {
           </span>
           <input
             class="input-field"
-            data-testid="input-fdata"
+            data-testid="input-fdate"
             name="birthday"
             required=""
             type="date"

@@ -92,7 +92,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
               className="input-field"
               name="birthday"
               type="date"
-              data-testid="input-fdata"
+              data-testid="input-fdate"
               onChange={(e) => this.setDisabled(e.target.value)}
               required
             />
