@@ -18,9 +18,9 @@ class Modal extends React.Component<ModalProps> {
       <>
         {this.props.visible && (
           <ModalContainer>
-            <ModalOverlay onClick={this.props.onClose}></ModalOverlay>
+            <ModalOverlay onClick={this.props.onClose} data-testid="modal-wrapper"></ModalOverlay>
             <ModalWindow>
-              <ButtonClose onClick={this.props.onClose} />
+              <ButtonClose onClick={this.props.onClose} data-testid="modal-close" />
               <ModalMessage>{this.props.children}</ModalMessage>
             </ModalWindow>
           </ModalContainer>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
@@ -40,33 +40,58 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-describe('API tests', () => {
-  test('fetch and display data', async () => {
-    const { findByText } = render(
-      <BrowserRouter>
-        <MainPage />
-      </BrowserRouter>
-    );
-
-    expect(await findByText('Some facts about cats')).toBeInTheDocument();
-    const cards = await screen.findAllByTestId('card-item');
-    expect(cards.length).toBe(2);
-  });
-
-  test('handles failure', async () => {
-    server.use(
-      rest.get('https://newsapi.org/v2/top-headlines', (req, res, ctx) => {
-        return res(ctx.status(404));
-      })
-    );
-
+describe('Modal tests', () => {
+  test('open modal window with info of 1st card', async () => {
     render(
       <BrowserRouter>
         <MainPage />
       </BrowserRouter>
     );
 
-    const downloadSpinner = await screen.getByTestId('spinner-test');
-    expect(downloadSpinner).toBeInTheDocument();
+    const cards = await screen.findAllByTestId('card-item');
+    const firstCard = cards[0];
+    expect(firstCard).toBeInTheDocument();
+    fireEvent.click(firstCard);
+    expect(screen.getByText(/Link to full news/i)).toBeInTheDocument();
+  });
+
+  test('close modal window by clicking on the close button after it was opened', async () => {
+    render(
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    );
+
+    const cards = await screen.findAllByTestId('card-item');
+    const firstCard = cards[0];
+    expect(firstCard).toBeInTheDocument();
+    fireEvent.click(firstCard);
+
+    const modalWrapper = screen.getByTestId('modal-wrapper');
+    expect(modalWrapper).toBeInTheDocument();
+
+    const closeBtn = screen.getByTestId('modal-close');
+    expect(closeBtn).toBeInTheDocument();
+
+    fireEvent.click(closeBtn);
+    expect(modalWrapper).not.toBeInTheDocument();
+  });
+
+  test('close modal window by clicking on the modal wrapper after it was opened', async () => {
+    render(
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    );
+
+    const cards = await screen.findAllByTestId('card-item');
+    const firstCard = cards[0];
+    expect(firstCard).toBeInTheDocument();
+    fireEvent.click(firstCard);
+
+    const modalWrapper = screen.getByTestId('modal-wrapper');
+    expect(modalWrapper).toBeInTheDocument();
+    fireEvent.click(modalWrapper);
+    expect(modalWrapper).not.toBeInTheDocument();
   });
 });
