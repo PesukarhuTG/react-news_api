@@ -43,22 +43,28 @@ class LoginForm extends React.Component<LoginFormProps, State> {
     const url = URL.createObjectURL(blob);
 
     this.props.onSubmit({
-      name: name.value,
-      birthday: birthday.value,
-      city: city.value,
-      gender: gender.value,
+      name: name?.value,
+      birthday: birthday?.value,
+      city: city?.value,
+      gender: gender?.value,
       file: url,
-      remember: remember.checked,
+      remember: remember?.checked,
     });
 
-    this.clearForm([name, birthday, city, gender, file, remember]);
+    this.clearForm([name, birthday, city, file, remember]);
   };
 
   clearForm = (prop: Array<HTMLInputElement>) => {
     prop.forEach((item) => {
-      if (item.type === 'checkbox') {
+      if (item && item.type === 'checkbox') {
         item.checked = false;
-      } else {
+      } else if (
+        item &&
+        (item.type === 'text' ||
+          item.type === 'date' ||
+          item.type === 'file' ||
+          item.name === 'city')
+      ) {
         item.value = '';
       }
     });
@@ -168,6 +174,7 @@ class LoginForm extends React.Component<LoginFormProps, State> {
           type="submit"
           disabled={this.state.disabled}
           data-testid="btn-submit"
+          value="btnSubmit"
         >
           Send my data
         </button>

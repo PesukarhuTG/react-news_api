@@ -167,6 +167,7 @@ Object {
           data-testid="btn-submit"
           disabled=""
           type="submit"
+          value="btnSubmit"
         >
           Send my data
         </button>
@@ -336,6 +337,7 @@ Object {
         data-testid="btn-submit"
         disabled=""
         type="submit"
+        value="btnSubmit"
       >
         Send my data
       </button>

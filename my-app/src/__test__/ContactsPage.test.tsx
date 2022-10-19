@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-//import { fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import { BrowserRouter } from 'react-router-dom';
 import { Contacts } from '../pages';
@@ -49,54 +49,35 @@ describe('Contacts page tests', () => {
     expect(cardsElement).toBeNull;
   });
 
-  /*test('create and render 1 card', async () => {
-    const { getByTestId } = render(
+  test('create and render 1 card', async () => {
+    render(
       <BrowserRouter>
         <Contacts />
       </BrowserRouter>
     );
 
-    const inputName = getByTestId('input-fname');
-    const inputDate = getByTestId('input-fdate');
-    const inputSelect = getByTestId('input-fcity');
-    const inputFile = getByTestId('input-file') as HTMLInputElement;
-    const inputCheckbox = getByTestId('input-faccept') as HTMLInputElement;
-    const submitButton = getByTestId('btn-submit');
+    const inputName = await screen.getByTestId('input-fname');
+    const inputDate = await screen.getByTestId('input-fdate');
+    const inputSelect = await screen.getByTestId('input-fcity');
+    const submitButton = await screen.getByTestId('btn-submit');
 
-    await waitFor(() => {
-      inputName.focus();
-      fireEvent.change(inputName, { target: { value: 'Tatiana' } });
-      fireEvent.blur(inputName);
-
-      inputDate.focus();
-      fireEvent.change(inputDate, { target: { value: '1989-03-27' } });
-      fireEvent.blur(inputDate);
-
-      inputSelect.focus();
-      fireEvent.change(inputSelect, {
-        target: { value: 'Saint-Petersburg' },
-      });
-      fireEvent.blur(inputSelect);
-
-      inputFile.focus();
-      fireEvent.change(inputFile, {
-        target: {
-          files: [new File(['hello'], 'hello.png', { type: 'image/png' })],
-        },
-      });
-      fireEvent.blur(inputFile);
-
-      inputCheckbox.focus();
-      fireEvent.click(inputCheckbox);
-      fireEvent.blur(inputCheckbox);
+    await act(async () => {
+      userEvent.type(inputName, 'Tatiana');
     });
 
-    expect(inputName).toHaveValue('Tatiana');
+    await act(async () => {
+      userEvent.type(inputDate, '2022-10-10');
+    });
 
-    await waitFor(() => fireEvent.click(submitButton));
+    await act(async () => {
+      userEvent.selectOptions(inputSelect, 'Saint-Petersburg');
+    });
 
-    const text = screen.getByText(/Tatiana/i);
-    expect(text).toBeInTheDocument();
-    expect(screen.getByTestId('card-item')).toBeInTheDocument();
-  });*/
+    await act(async () => {
+      userEvent.click(submitButton);
+    });
+
+    const cards = await screen.getAllByTestId('form-card');
+    expect(cards.length).toBe(1);
+  });
 });
