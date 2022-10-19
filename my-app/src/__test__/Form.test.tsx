@@ -16,11 +16,6 @@ describe('Form tests', () => {
     expect(screen.getByTestId('input-file')).toBeInTheDocument();
   });
 
-  test('Form snapshot', () => {
-    const form = render(<LoginForm onSubmit={() => {}} />);
-    expect(form).toMatchSnapshot();
-  });
-
   test('input name: check form value', () => {
     render(<LoginForm onSubmit={() => {}} />);
 

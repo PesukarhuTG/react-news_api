@@ -16,7 +16,7 @@ interface FormFields {
 
 interface State {
   disabled: boolean;
-  selectedFile: any;
+  selectedFile: any; //eslint-disable-line
 }
 
 class LoginForm extends React.Component<LoginFormProps, State> {

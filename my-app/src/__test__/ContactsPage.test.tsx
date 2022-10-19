@@ -19,15 +19,6 @@ describe('Contacts page tests', () => {
     expect(title).toBeInTheDocument();
   });
 
-  test('Contacts page snapshot', () => {
-    const page = render(
-      <BrowserRouter>
-        <Contacts />
-      </BrowserRouter>
-    );
-    expect(page).toMatchSnapshot();
-  });
-
   test('render Form on Contacts page', () => {
     render(
       <BrowserRouter>
