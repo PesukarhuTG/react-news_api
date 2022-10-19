@@ -6,7 +6,7 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="sc-dkzDqf dbxxpE"
+        class="sc-hKMtZM gNVYeH"
         data-testid="layout-container"
       >
         <header
@@ -24,19 +24,21 @@ Object {
           >
             <a
               aria-current="page"
-              class="active-link"
+              class="sc-dkzDqf hANaiY active"
               data-testid="mainpage-link"
               href="/"
             >
               Home
             </a>
             <a
+              class="sc-dkzDqf hANaiY"
               data-testid="aboutpage-link"
               href="/about"
             >
               About
             </a>
             <a
+              class="sc-dkzDqf hANaiY"
               data-testid="contactspage-link"
               href="/contacts"
             >
@@ -45,20 +47,20 @@ Object {
           </nav>
         </header>
         <div
-          class="sc-kgflAQ KkjtX"
+          class="sc-hHLeRK fCBUSl"
         >
           <h2
-            class="sc-fLlhyt VLNvS"
+            class="sc-dmRaPn lhaZix"
           >
             404
           </h2>
           <p
-            class="sc-bBrHrO gDTyyr"
+            class="sc-kgflAQ dGRinC"
           >
             sorry, page not found
           </p>
           <a
-            class="sc-ivTmOn bYpnSK"
+            class="sc-fLlhyt kGtQxu"
             href="/"
           >
             ► back home
@@ -69,7 +71,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-dkzDqf dbxxpE"
+      class="sc-hKMtZM gNVYeH"
       data-testid="layout-container"
     >
       <header
@@ -87,19 +89,21 @@ Object {
         >
           <a
             aria-current="page"
-            class="active-link"
+            class="sc-dkzDqf hANaiY active"
             data-testid="mainpage-link"
             href="/"
           >
             Home
           </a>
           <a
+            class="sc-dkzDqf hANaiY"
             data-testid="aboutpage-link"
             href="/about"
           >
             About
           </a>
           <a
+            class="sc-dkzDqf hANaiY"
             data-testid="contactspage-link"
             href="/contacts"
           >
@@ -108,20 +112,20 @@ Object {
         </nav>
       </header>
       <div
-        class="sc-kgflAQ KkjtX"
+        class="sc-hHLeRK fCBUSl"
       >
         <h2
-          class="sc-fLlhyt VLNvS"
+          class="sc-dmRaPn lhaZix"
         >
           404
         </h2>
         <p
-          class="sc-bBrHrO gDTyyr"
+          class="sc-kgflAQ dGRinC"
         >
           sorry, page not found
         </p>
         <a
-          class="sc-ivTmOn bYpnSK"
+          class="sc-fLlhyt kGtQxu"
           href="/"
         >
           ► back home
