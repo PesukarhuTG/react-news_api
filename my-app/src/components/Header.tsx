@@ -16,8 +16,8 @@ const Header: React.FC = () => {
         <HeaderNavLink to="/about" data-testid="aboutpage-link">
           About
         </HeaderNavLink>
-        <HeaderNavLink to="/contacts" data-testid="contactspage-link">
-          Contacts
+        <HeaderNavLink to="/form" data-testid="formpage-link">
+          Form
         </HeaderNavLink>
       </HeaderNav>
     </AppHeader>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Layout } from '../components';
 
-const About: React.FC = () => {
+const AboutPage: React.FC = () => {
   return (
     <Layout>
       <Wrapper>
@@ -40,4 +40,4 @@ const PrimaryText = styled.p`
   font-weight: 700;
 `;
 
-export default About;
+export default AboutPage;

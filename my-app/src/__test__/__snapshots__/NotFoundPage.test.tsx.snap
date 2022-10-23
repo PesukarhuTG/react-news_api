@@ -39,10 +39,10 @@ Object {
             </a>
             <a
               class="sc-dkzDqf hANaiY"
-              data-testid="contactspage-link"
-              href="/contacts"
+              data-testid="formpage-link"
+              href="/form"
             >
-              Contacts
+              Form
             </a>
           </nav>
         </header>
@@ -104,10 +104,10 @@ Object {
           </a>
           <a
             class="sc-dkzDqf hANaiY"
-            data-testid="contactspage-link"
-            href="/contacts"
+            data-testid="formpage-link"
+            href="/form"
           >
-            Contacts
+            Form
           </a>
         </nav>
       </header>
