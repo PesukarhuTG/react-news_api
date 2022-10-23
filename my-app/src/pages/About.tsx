@@ -2,22 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { Layout } from '../components';
 
-class About extends React.Component {
-  render() {
-    return (
-      <Layout>
-        <Wrapper>
-          <Title>About us</Title>
-          <Description>
-            <b>Racoon news</b>: it is the latest breaking news and information on the top stories,
-            weather, business, entertainment, politics, and more.
-          </Description>
-          <PrimaryText>You do not miss anything!</PrimaryText>
-        </Wrapper>
-      </Layout>
-    );
-  }
-}
+const About: React.FC = () => {
+  return (
+    <Layout>
+      <Wrapper>
+        <Title>About us</Title>
+        <Description>
+          <b>Racoon news</b>: it is the latest breaking news and information on the top stories,
+          weather, business, entertainment, politics, and more.
+        </Description>
+        <PrimaryText>You do not miss anything!</PrimaryText>
+      </Wrapper>
+    </Layout>
+  );
+};
 
 const Wrapper = styled.div`
   margin: 0 auto;
