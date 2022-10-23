@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
 import CardProps from '../types/Card';
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   const [news, setNews] = useState<CardProps[]>([]);
   const value = (localStorage.getItem('searchData') || '') as string;
 
