@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import FormProps from '../types/Form';
-import { Layout, LoginForm, FormCardsAlbum } from '../components';
+import { Layout, Form, FormCardsAlbum } from '../components';
 
 const FormPage: React.FC = () => {
   const [list, setList] = useState<FormProps[]>([]);
@@ -20,7 +20,7 @@ const FormPage: React.FC = () => {
     <Layout>
       <Wrapper>
         <Title>Contact us via form</Title>
-        <LoginForm onSubmit={onSubmit} />
+        <Form onSubmit={onSubmit} />
       </Wrapper>
       <Message data-testid="form-message">{message}</Message>
       <FormCardsAlbum list={list} />
