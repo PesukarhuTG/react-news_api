@@ -12,7 +12,7 @@ interface SearchProps {
 
 const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
   const [value, setValue] = useState<string>('');
-  const valRef = useRef(value); //1) определяем ссылку valRef, начальное значение которой value
+  const valRef = useRef(value);
 
   const onChange = (searchValue: string): void => {
     setValue(searchValue);
@@ -32,7 +32,7 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
 
   useEffect(() => {
     valRef.current = value;
-  }, [value]); // 2) при каждом изменении value мы фиксируем это в ref
+  }, [value]);
 
   useEffect(() => {
     const value = localStorage.getItem('searchData');
@@ -40,7 +40,7 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
       setValue(value);
     }
     return () => {
-      localStorage.setItem('searchData', valRef.current); //3) основной хук запускается при 1м рендеринге, но в LS сохраняется valRef
+      localStorage.setItem('searchData', valRef.current);
     };
   }, []);
 

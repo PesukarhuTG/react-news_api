@@ -37,7 +37,7 @@ const MainPage: React.FC = () => {
     <Layout>
       <SearchPanel onSearch={onSubmit} />
       <Headling>Hot news on Racoon digest</Headling>
-      <Message>{message}</Message>
+      <Message data-testid="fail-message">{message}</Message>
       <CardsAlbum cards={news} />
     </Layout>
   );
