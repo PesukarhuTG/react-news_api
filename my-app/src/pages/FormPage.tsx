@@ -19,7 +19,7 @@ const FormPage: React.FC = () => {
   return (
     <Layout>
       <Wrapper>
-        <Title>Contact us via form</Title>
+        <Title>Save your data</Title>
         <Form onSubmit={onSubmit} />
       </Wrapper>
       <Message data-testid="form-message">{message}</Message>

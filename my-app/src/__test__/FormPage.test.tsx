@@ -15,7 +15,7 @@ describe('Contacts page tests', () => {
       </BrowserRouter>
     );
 
-    const title = screen.getByText(/Contact us via form/i);
+    const title = screen.getByText(/Save your data/i);
     expect(title).toBeInTheDocument();
   });
 

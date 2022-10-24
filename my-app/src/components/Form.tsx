@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import FormProps from '../types/Form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface LoginFormProps {
   onSubmit: (data: FormProps) => void;
 }
 
-interface FormFields {
-  name: HTMLInputElement;
-  birthday: HTMLInputElement;
-  city: HTMLInputElement;
-  gender: HTMLInputElement;
-  file: HTMLInputElement;
-  remember: HTMLInputElement;
-}
-
 const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [selectedFile, setSelectedFile] = useState<any>(null); //eslint-disable-line
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormProps>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
@@ -24,73 +23,50 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     }
   };
 
-  const clearForm = (prop: Array<HTMLInputElement>) => {
-    prop.forEach((item) => {
-      if (item && item.type === 'checkbox') {
-        item.checked = false;
-      } else if (
-        item &&
-        (item.type === 'text' ||
-          item.type === 'date' ||
-          item.type === 'file' ||
-          item.name === 'city')
-      ) {
-        item.value = '';
-      }
-    });
+  const getDataSubmit: SubmitHandler<FormProps> = (data) => {
+    const blob = new Blob([selectedFile]);
+    const file = URL.createObjectURL(blob);
 
+    onSubmit({ ...data, file });
+
+    reset();
     setDisabled(true);
     setSelectedFile(null);
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement & FormFields> = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const { name, birthday, city, gender, file, remember } = form;
-
-    const blob = new Blob([selectedFile]);
-    const url = URL.createObjectURL(blob);
-
-    onSubmit({
-      name: name?.value,
-      birthday: birthday?.value,
-      city: city?.value,
-      gender: gender?.value,
-      file: url,
-      remember: remember?.checked,
-    });
-
-    clearForm([name, birthday, city, file, remember]);
-  };
-
-  const setDisabledVal = (value: string) => {
+  const isDisabledSubmit = (value: string) => {
     value.length !== 0 ? setDisabled(false) : setDisabled(true);
   };
 
   return (
-    <form onSubmit={handleSubmit} data-testid="form">
+    <form onSubmit={handleSubmit(getDataSubmit)} data-testid="form">
       <div className="form-wrapper">
         <label className="input-wrapper">
           <span className="input-name">Name</span>
           <input
             className="input-field"
+            {...register('name', {
+              required: 'Name is required',
+              minLength: { value: 2, message: 'Name should be more 2 letters' },
+            })}
             name="name"
             type="text"
             data-testid="input-fname"
-            onChange={(e) => setDisabledVal(e.target.value)}
-            required
+            onChange={(e) => isDisabledSubmit(e.target.value)}
           />
+          {errors.name && <ErrMessage>{errors.name.message}</ErrMessage>}
         </label>
         <label className="input-wrapper">
           <span className="input-name">Birthday</span>
           <input
             className="input-field"
+            {...register('birthday', { required: 'Birthday is required' })}
             name="birthday"
             type="date"
             data-testid="input-fdate"
-            onChange={(e) => setDisabledVal(e.target.value)}
-            required
+            onChange={(e) => isDisabledSubmit(e.target.value)}
           />
+          {errors.birthday && <ErrMessage>{errors.birthday.message}</ErrMessage>}
         </label>
       </div>
 
@@ -99,10 +75,10 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
           <span className="input-name">Choose a city</span>
           <select
             className="input-city"
+            {...register('city', { required: 'City is required' })}
             name="city"
             data-testid="input-fcity"
-            onChange={(e) => setDisabledVal(e.target.value)}
-            required
+            onChange={(e) => isDisabledSubmit(e.target.value)}
           >
             <option value="" />
             <option value="Saint-Petersburg">Saint-Petersburg</option>
@@ -111,6 +87,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <option value="Petrozavodsk">Petrozavodsk</option>
             <option value="other city">...other city</option>
           </select>
+          {errors.city && <ErrMessage>{errors.city.message}</ErrMessage>}
         </label>
         <label className="input-wrapper">
           <span className="input-name">Gender</span>
@@ -118,6 +95,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <input
               type="radio"
               id="man"
+              {...register('gender')}
               name="gender"
               value="man"
               data-testid="input-fgender-man"
@@ -130,6 +108,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <input
               type="radio"
               id="woman"
+              {...register('gender')}
               name="gender"
               value="woman"
               data-testid="input-fgender-woman"
@@ -145,6 +124,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
         <span className="input-name">Upload a file</span>
         <input
           className="input-file"
+          {...register('file')}
           name="file"
           type="file"
           accept="image/*, .png, .jpg"
@@ -154,7 +134,12 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
       </label>
 
       <label className="input-wrapper-gorizont">
-        <input name="remember" type="checkbox" data-testid="input-faccept" />
+        <input
+          type="checkbox"
+          {...register('remember')}
+          name="remember"
+          data-testid="input-faccept"
+        />
         <span className="remember-name">I consent to use my personal data</span>
       </label>
 
@@ -165,10 +150,16 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
         data-testid="btn-submit"
         value="btnSubmit"
       >
-        Send my data
+        Save my data
       </button>
     </form>
   );
 };
+
+const ErrMessage = styled.p`
+  padding-top: 7px;
+  font-size: 9px;
+  color: var(--accent);
+`;
 
 export default Form;
