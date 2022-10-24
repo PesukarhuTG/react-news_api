@@ -6,9 +6,15 @@ import CardProps from '../types/Card';
 
 const MainPage: React.FC = () => {
   const [news, setNews] = useState<CardProps[]>([]);
+  const [message, setMessage] = useState<string>('');
   const value = (localStorage.getItem('searchData') || '') as string;
 
   const onSubmit = (data: CardProps[]): void => {
+    if (!data.length) {
+      setMessage('Sorry, your request is failed');
+    } else {
+      setMessage('');
+    }
     setNews(data);
   };
 
@@ -31,19 +37,29 @@ const MainPage: React.FC = () => {
     <Layout>
       <SearchPanel onSearch={onSubmit} />
       <Headling>Hot news on Racoon digest</Headling>
+      <Message>{message}</Message>
       <CardsAlbum cards={news} />
     </Layout>
   );
 };
 
 const Headling = styled.p`
-  margin: 20px 0 30px;
+  margin: 20px 0 10px;
   text-align: center;
   font-size: 36px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--primary);
   opacity: 0.6;
+`;
+
+const Message = styled.p`
+  margin: 10px 0 10px;
+  height: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
 `;
 
 export default MainPage;
