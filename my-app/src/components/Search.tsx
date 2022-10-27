@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Input } from 'antd';
 import CardProps from '../types/Card';
 import { getNews, searchNews } from '../services/getDataApi';
+import { SearchContext } from 'store/Context';
 
 const { Search } = Input;
 
@@ -11,45 +12,30 @@ interface SearchProps {
 }
 
 const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
-  const [value, setValue] = useState<string>('');
-  const valRef = useRef(value);
+  const { searchVal, setSearchVal } = useContext(SearchContext);
 
   const onChange = (searchValue: string): void => {
-    setValue(searchValue);
+    setSearchVal(searchValue);
   };
 
-  const handleSubmit = (): void => {
-    if (value) {
-      searchNews(value).then((resp) => {
+  const handleSubmit = async () => {
+    if (searchVal) {
+      await searchNews(searchVal).then((resp) => {
         onSearch(resp.articles);
       });
     } else {
-      getNews().then((resp) => {
+      await getNews().then((resp) => {
         onSearch(resp.articles);
       });
     }
   };
-
-  useEffect(() => {
-    valRef.current = value;
-  }, [value]);
-
-  useEffect(() => {
-    const value = localStorage.getItem('searchData');
-    if (value) {
-      setValue(value);
-    }
-    return () => {
-      localStorage.setItem('searchData', valRef.current);
-    };
-  }, []);
 
   return (
     <StyledSearch
       placeholder="Search..."
       onChange={(e) => onChange(e.target.value)}
       onSearch={handleSubmit}
-      value={value}
+      value={searchVal}
       data-testid="input-search"
       allowClear
       enterButton

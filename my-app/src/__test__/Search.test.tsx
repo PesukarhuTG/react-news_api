@@ -23,6 +23,11 @@ describe('Search', () => {
     fireEvent.input(input, {
       target: { value: 'swimming' },
     });
-    expect(input).toContainHTML('swimming');
+
+    const checkInput = () => {
+      expect(input).toHaveValue('swimming');
+    };
+
+    setTimeout(checkInput, 300);
   });
 });

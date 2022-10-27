@@ -144,6 +144,6 @@ describe('Form tests', () => {
       expect(checkbox).not.toBeChecked();
     };
 
-    setTimeout(checkClearForm, 1000);
+    setTimeout(checkClearForm, 300);
   });
 });

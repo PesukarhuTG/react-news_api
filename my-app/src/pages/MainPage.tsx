@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Layout, SearchPanel, CardsAlbum } from 'components';
 import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
 import CardProps from '../types/Card';
+import { SearchContext } from 'store/Context';
 
 const MainPage: React.FC = () => {
   const [news, setNews] = useState<CardProps[]>([]);
   const [message, setMessage] = useState<string>('');
-  const value = (localStorage.getItem('searchData') || '') as string;
+  const { searchVal } = useContext(SearchContext);
 
   const onSubmit = (data: CardProps[]): void => {
     if (!data.length) {
@@ -20,9 +21,14 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     const checkData = async (): Promise<void> => {
-      if (value) {
-        const articles = await searchNews(value).then((resp) => resp.articles);
-        setNews(articles);
+      if (searchVal) {
+        const articles = await searchNews(searchVal).then((resp) => resp.articles);
+        if (!articles.length) {
+          setMessage('Sorry, your request is failed');
+        } else {
+          setMessage('');
+          setNews(articles);
+        }
       } else {
         const articles = await getNews().then((resp) => resp.articles);
         setNews(articles);
