@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import FormProps from '../types/Form';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { SearchContext } from 'store/Context';
 
 interface LoginFormProps {
   onSubmit: (data: FormProps) => void;
@@ -10,6 +11,16 @@ interface LoginFormProps {
 const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [selectedFile, setSelectedFile] = useState<any>(null); //eslint-disable-line
+  const {
+    formName,
+    setFormName,
+    formDate,
+    setFormDate,
+    formCity,
+    setFormCity,
+    formAccept,
+    setFormAccept,
+  } = useContext(SearchContext);
   const {
     register,
     handleSubmit,
@@ -30,13 +41,19 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     onSubmit({ ...data, file });
 
     reset();
-    setDisabled(true);
+    setFormName('');
+    setFormDate('');
+    setFormCity('');
     setSelectedFile(null);
+    setFormAccept(false);
+    setDisabled(true);
   };
 
-  const isDisabledSubmit = (value: string) => {
-    value.length !== 0 ? setDisabled(false) : setDisabled(true);
-  };
+  useEffect(() => {
+    if (formName !== '' || formDate !== '' || formCity !== '') {
+      setDisabled(false);
+    }
+  }, [formName, formDate, formCity]);
 
   return (
     <form onSubmit={handleSubmit(getDataSubmit)} data-testid="form">
@@ -52,7 +69,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
             name="name"
             type="text"
             data-testid="input-fname"
-            onChange={(e) => isDisabledSubmit(e.target.value)}
+            value={formName}
+            onChange={(e) => setFormName(e.target.value)}
           />
           {errors.name && <ErrMessage>{errors.name.message}</ErrMessage>}
         </label>
@@ -64,7 +82,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
             name="birthday"
             type="date"
             data-testid="input-fdate"
-            onChange={(e) => isDisabledSubmit(e.target.value)}
+            value={formDate}
+            onChange={(e) => setFormDate(e.target.value)}
           />
           {errors.birthday && <ErrMessage>{errors.birthday.message}</ErrMessage>}
         </label>
@@ -78,7 +97,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
             {...register('city', { required: 'City is required' })}
             name="city"
             data-testid="input-fcity"
-            onChange={(e) => isDisabledSubmit(e.target.value)}
+            value={formCity}
+            onChange={(e) => setFormCity(e.target.value)}
           >
             <option value="" />
             <option value="Saint-Petersburg">Saint-Petersburg</option>
@@ -139,6 +159,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
           {...register('remember')}
           name="remember"
           data-testid="input-faccept"
+          defaultChecked={formAccept}
+          onChange={(e) => setFormAccept(e.target.checked)}
         />
         <span className="remember-name">I consent to use my personal data</span>
       </label>

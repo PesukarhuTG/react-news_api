@@ -16,16 +16,19 @@ describe('Form tests', () => {
     expect(screen.getByTestId('input-file')).toBeInTheDocument();
   });
 
-  test('input name: check form value', () => {
+  test('input name: check form value', async () => {
     render(<Form onSubmit={() => {}} />);
 
     const input = screen.getByTestId('input-fname');
     expect(input).toBeInTheDocument();
     expect(input).toContainHTML('');
-    fireEvent.input(input, {
-      target: { value: 'Tany' },
+
+    fireEvent.change(input, {
+      target: { value: 'Tatiana' },
     });
-    expect(input).toHaveValue('Tany');
+
+    const checkChanges = () => expect(input).toHaveValue('Tatiana');
+    setTimeout(checkChanges, 300);
   });
 
   test('input radio: check render', () => {
@@ -43,10 +46,13 @@ describe('Form tests', () => {
 
     const input = screen.getByTestId('input-fdate');
     expect(input).toBeInTheDocument();
-    fireEvent.input(input, {
+
+    fireEvent.change(input, {
       target: { value: '2022-01-01' },
     });
-    expect(input).toHaveValue('2022-01-01');
+
+    const checkChanges = () => expect(input).toHaveValue('2022-01-01');
+    setTimeout(checkChanges, 300);
   });
 
   test('input file: upload file', async () => {
@@ -128,10 +134,14 @@ describe('Form tests', () => {
 
     fireEvent.click(checkbox);
 
-    expect(inputName).toHaveValue('Tatiana');
-    expect(inputDate).toHaveValue('2022-10-10');
-    expect(inputSelect).toHaveValue('Saint-Petersburg');
-    expect(checkbox).toBeChecked();
+    const checkCompletedForm = () => {
+      expect(inputName).toHaveValue('Tatiana');
+      expect(inputDate).toHaveValue('2022-10-10');
+      expect(inputSelect).toHaveValue('Saint-Petersburg');
+      expect(checkbox).toBeChecked();
+    };
+
+    setTimeout(checkCompletedForm, 300);
 
     await waitFor(async () => {
       fireEvent.click(submitButton);
