@@ -2,11 +2,11 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import FormProps from '../types/Form';
 import { Layout, Form, FormCardsAlbum } from '../components';
-import { SearchContext } from 'store/Context';
+import { Context } from 'store/Context';
 
 const FormPage: React.FC = () => {
   const [message, setMessage] = useState<string>('');
-  const { formList, setFormList } = useContext(SearchContext);
+  const { formList, setFormList } = useContext(Context);
 
   const onSubmit = (formFields: FormProps) => {
     const currentList = formList;

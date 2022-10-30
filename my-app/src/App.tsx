@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { MainPage, AboutPage, NotFound, FormPage } from './pages';
-import { SearchContext } from './store/Context';
+import { Context } from './store/Context';
 import FormProps from 'types/Form';
 
 const App: React.FC = () => {
@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [formList, setFormList] = useState<FormProps[]>([]);
 
   return (
-    <SearchContext.Provider
+    <Context.Provider
       value={{
         searchVal,
         setSearchVal,
@@ -38,7 +38,7 @@ const App: React.FC = () => {
         <Route path="/form" element={<FormPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </SearchContext.Provider>
+    </Context.Provider>
   );
 };
 

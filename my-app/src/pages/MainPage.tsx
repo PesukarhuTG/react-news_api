@@ -3,12 +3,12 @@ import { Layout, SearchPanel, CardsAlbum } from 'components';
 import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
 import CardProps from '../types/Card';
-import { SearchContext } from 'store/Context';
+import { Context } from 'store/Context';
 
 const MainPage: React.FC = () => {
   const [news, setNews] = useState<CardProps[]>([]);
   const [message, setMessage] = useState<string>('');
-  const { searchVal } = useContext(SearchContext);
+  const { searchVal } = useContext(Context);
 
   const onSubmit = (data: CardProps[]): void => {
     if (!data.length) {

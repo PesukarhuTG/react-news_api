@@ -18,7 +18,7 @@ interface GlobalContent {
   setFormList: React.Dispatch<React.SetStateAction<FormProps[]>>;
 }
 
-export const SearchContext = React.createContext<GlobalContent>({
+export const Context = React.createContext<GlobalContent>({
   searchVal: '',
   setSearchVal: () => {},
   formName: '',

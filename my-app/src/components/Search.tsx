@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Input } from 'antd';
 import CardProps from '../types/Card';
 import { getNews, searchNews } from '../services/getDataApi';
-import { SearchContext } from 'store/Context';
+import { Context } from 'store/Context';
 
 const { Search } = Input;
 
@@ -12,7 +12,7 @@ interface SearchProps {
 }
 
 const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
-  const { searchVal, setSearchVal } = useContext(SearchContext);
+  const { searchVal, setSearchVal } = useContext(Context);
 
   const onChange = (searchValue: string): void => {
     setSearchVal(searchValue);

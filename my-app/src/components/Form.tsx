@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import FormProps from '../types/Form';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { SearchContext } from 'store/Context';
+import { Context } from 'store/Context';
 
 interface LoginFormProps {
   onSubmit: (data: FormProps) => void;
@@ -22,7 +22,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     setFormGender,
     formAccept,
     setFormAccept,
-  } = useContext(SearchContext);
+  } = useContext(Context);
   const {
     register,
     handleSubmit,
