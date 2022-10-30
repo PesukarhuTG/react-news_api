@@ -11,6 +11,8 @@ interface GlobalContent {
   setFormCity: React.Dispatch<React.SetStateAction<string>>;
   formAccept: boolean;
   setFormAccept: React.Dispatch<React.SetStateAction<boolean>>;
+  formGender: string;
+  setFormGender: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const SearchContext = React.createContext<GlobalContent>({
@@ -24,4 +26,6 @@ export const SearchContext = React.createContext<GlobalContent>({
   setFormCity: () => {},
   formAccept: false,
   setFormAccept: () => {},
+  formGender: 'man',
+  setFormGender: () => {},
 });

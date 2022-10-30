@@ -10,7 +10,7 @@ interface LoginFormProps {
 
 const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const [disabled, setDisabled] = useState<boolean>(true);
-  const [selectedFile, setSelectedFile] = useState<any>(null); //eslint-disable-line
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const {
     formName,
     setFormName,
@@ -18,6 +18,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     setFormDate,
     formCity,
     setFormCity,
+    formGender,
+    setFormGender,
     formAccept,
     setFormAccept,
   } = useContext(SearchContext);
@@ -35,8 +37,12 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
   };
 
   const getDataSubmit: SubmitHandler<FormProps> = (data) => {
-    const blob = new Blob([selectedFile]);
-    const file = URL.createObjectURL(blob);
+    let file = null;
+
+    if (selectedFile !== null) {
+      const blob = new Blob([selectedFile]);
+      file = URL.createObjectURL(blob);
+    }
 
     onSubmit({ ...data, file });
 
@@ -44,6 +50,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     setFormName('');
     setFormDate('');
     setFormCity('');
+    setFormGender('man');
     setSelectedFile(null);
     setFormAccept(false);
     setDisabled(true);
@@ -119,7 +126,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
               name="gender"
               value="man"
               data-testid="input-fgender-man"
-              defaultChecked
+              defaultChecked={formGender === 'man' ? true : false}
+              onChange={(e) => setFormGender(e.target.value)}
             />
             <label className="gender-name" htmlFor="man">
               man
@@ -132,6 +140,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
               name="gender"
               value="woman"
               data-testid="input-fgender-woman"
+              defaultChecked={formGender === 'woman' ? true : false}
+              onChange={(e) => setFormGender(e.target.value)}
             />
             <label className="gender-name" htmlFor="woman">
               woman

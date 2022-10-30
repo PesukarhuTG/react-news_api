@@ -9,6 +9,7 @@ const App: React.FC = () => {
   const [formDate, setFormDate] = useState<string>('');
   const [formCity, setFormCity] = useState<string>('');
   const [formAccept, setFormAccept] = useState<boolean>(false);
+  const [formGender, setFormGender] = useState<string>('man');
 
   return (
     <SearchContext.Provider
@@ -21,6 +22,8 @@ const App: React.FC = () => {
         setFormDate,
         formCity,
         setFormCity,
+        formGender,
+        setFormGender,
         formAccept,
         setFormAccept,
       }}
