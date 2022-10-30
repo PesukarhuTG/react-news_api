@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import FormProps from '../types/Form';
 import { Layout, Form, FormCardsAlbum } from '../components';
+import { SearchContext } from 'store/Context';
 
 const FormPage: React.FC = () => {
-  const [list, setList] = useState<FormProps[]>([]);
   const [message, setMessage] = useState<string>('');
+  const { formList, setFormList } = useContext(SearchContext);
 
   const onSubmit = (formFields: FormProps) => {
-    const currentList = list;
+    const currentList = formList;
     currentList.push(formFields);
-    setList(currentList);
+    setFormList(currentList);
 
     setMessage('Your data has been saved!');
     setTimeout(() => setMessage(''), 1500);
@@ -23,7 +24,7 @@ const FormPage: React.FC = () => {
         <Form onSubmit={onSubmit} />
       </Wrapper>
       <Message data-testid="form-message">{message}</Message>
-      <FormCardsAlbum list={list} />
+      <FormCardsAlbum list={formList} />
     </Layout>
   );
 };

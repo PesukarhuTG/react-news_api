@@ -1,4 +1,5 @@
 import React from 'react';
+import FormProps from '../types/Form';
 
 interface GlobalContent {
   searchVal: string;
@@ -13,6 +14,8 @@ interface GlobalContent {
   setFormAccept: React.Dispatch<React.SetStateAction<boolean>>;
   formGender: string;
   setFormGender: React.Dispatch<React.SetStateAction<string>>;
+  formList: FormProps[];
+  setFormList: React.Dispatch<React.SetStateAction<FormProps[]>>;
 }
 
 export const SearchContext = React.createContext<GlobalContent>({
@@ -28,4 +31,6 @@ export const SearchContext = React.createContext<GlobalContent>({
   setFormAccept: () => {},
   formGender: 'man',
   setFormGender: () => {},
+  formList: [],
+  setFormList: () => {},
 });

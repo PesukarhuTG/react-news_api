@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { MainPage, AboutPage, NotFound, FormPage } from './pages';
 import { SearchContext } from './store/Context';
+import FormProps from 'types/Form';
 
 const App: React.FC = () => {
   const [searchVal, setSearchVal] = useState<string>('');
@@ -10,6 +11,7 @@ const App: React.FC = () => {
   const [formCity, setFormCity] = useState<string>('');
   const [formAccept, setFormAccept] = useState<boolean>(false);
   const [formGender, setFormGender] = useState<string>('man');
+  const [formList, setFormList] = useState<FormProps[]>([]);
 
   return (
     <SearchContext.Provider
@@ -26,6 +28,8 @@ const App: React.FC = () => {
         setFormGender,
         formAccept,
         setFormAccept,
+        formList,
+        setFormList,
       }}
     >
       <Routes>
