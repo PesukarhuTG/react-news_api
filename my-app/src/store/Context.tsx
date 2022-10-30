@@ -20,6 +20,10 @@ interface GlobalContent {
   setSearchIn: React.Dispatch<React.SetStateAction<string>>;
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
+  sortDateFrom: string;
+  setDateFrom: React.Dispatch<React.SetStateAction<string>>;
+  sortDateTo: string;
+  setDateTo: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const Context = React.createContext<GlobalContent>({
@@ -33,7 +37,7 @@ export const Context = React.createContext<GlobalContent>({
   setFormCity: () => {},
   formAccept: false,
   setFormAccept: () => {},
-  formGender: 'man',
+  formGender: '',
   setFormGender: () => {},
   formList: [],
   setFormList: () => {},
@@ -41,4 +45,8 @@ export const Context = React.createContext<GlobalContent>({
   setSearchIn: () => {},
   sortBy: '',
   setSortBy: () => {},
+  sortDateFrom: '',
+  setDateFrom: () => {},
+  sortDateTo: '',
+  setDateTo: () => {},
 });

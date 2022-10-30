@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Layout, SearchPanel, CardsAlbum, SortSelectBy, SortSelectIn } from 'components';
+import {
+  Layout,
+  SearchPanel,
+  CardsAlbum,
+  SortSelectBy,
+  SortSelectIn,
+  SortDateFrom,
+  SortDateTo,
+} from 'components';
 import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
 import CardProps from '../types/Card';
@@ -43,11 +51,17 @@ const MainPage: React.FC = () => {
     <Layout>
       <SearchPanel onSearch={onSubmit} />
       <Headling>Hot news on Racoon digest</Headling>
-      <SearchBlock>
-        <p>Searching by:</p>
-        <SortSelectIn options={['title', 'description']} />
-        <SortSelectBy options={['publishedAt', 'relevancy', 'popularity']} />
-      </SearchBlock>
+      <SortWrapper>
+        <SortBlock>
+          <p>Searching by:</p>
+          <SortSelectIn options={['title', 'description']} />
+          <SortSelectBy options={['publishedAt', 'relevancy', 'popularity']} />
+        </SortBlock>
+        <SortBlock>
+          <SortDateFrom />
+          <SortDateTo />
+        </SortBlock>
+      </SortWrapper>
       <Message data-testid="fail-message">{message}</Message>
       <CardsAlbum cards={news} />
     </Layout>
@@ -73,14 +87,25 @@ const Message = styled.p`
   color: var(--accent);
 `;
 
-const SearchBlock = styled.div`
+const SortBlock = styled.div`
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: center;
+  gap: 20px;
+`;
+
+const SortWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
   gap: 20px;
   background-color: var(--second-contrast);
   font-size: 14px;
+
+  @media (max-width: 950px) {
+    flex-direction: column;
+  }
 `;
 
 export default MainPage;

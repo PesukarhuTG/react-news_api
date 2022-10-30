@@ -16,7 +16,13 @@ export const getNews = async () => {
   return await getData(url);
 };
 
-export const searchNews = async (query: string, where = 'title', sort = 'publishedAt') => {
-  const url = `everything?searchIn=${where}&q=${query}&sortBy=${sort}&apiKey=${API_KEY}`;
+export const searchNews = async (
+  query: string,
+  where = 'title',
+  sort = 'publishedAt',
+  dateFrom = '2022-10-25',
+  dateTo = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+) => {
+  const url = `everything?searchIn=${where}&q=${query}&sortBy=${sort}&from=${dateFrom}&to=${dateTo}&apiKey=${API_KEY}`;
   return await getData(url);
 };

@@ -10,3 +10,5 @@ export { default as Spinner } from './Spinner';
 export { default as Modal } from './Modal';
 export { default as SortSelectBy } from './SortSelectBy';
 export { default as SortSelectIn } from './SortSelectIn';
+export { default as SortDateFrom } from './SortDateFrom';
+export { default as SortDateTo } from './SortDateTo';

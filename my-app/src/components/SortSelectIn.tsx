@@ -26,11 +26,12 @@ const SortSelectIn: React.FC<SortProps> = ({ options }) => {
 
 const Select = styled.select`
   display: inline-block;
-  margin-left: 10px;
-  padding: 2px 5px;
+  padding: 5.5px 5px;
+  border-radius: 5px;
   background-color: var(--main-background);
   font-size: 14px;
   outline: none;
+  cursor: pointer;
 
   &:hover {
     border: 1px solid var(--primary);

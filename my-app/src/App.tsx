@@ -14,6 +14,10 @@ const App: React.FC = () => {
   const [formList, setFormList] = useState<FormProps[]>([]);
   const [searchIn, setSearchIn] = useState<string>('title');
   const [sortBy, setSortBy] = useState<string>('publishedAt');
+  const [sortDateFrom, setDateFrom] = useState<string>('2022-10-25');
+  const [sortDateTo, setDateTo] = useState<string>(
+    `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+  );
 
   return (
     <Context.Provider
@@ -36,6 +40,10 @@ const App: React.FC = () => {
         setSearchIn,
         sortBy,
         setSortBy,
+        sortDateFrom,
+        setDateFrom,
+        sortDateTo,
+        setDateTo,
       }}
     >
       <Routes>
