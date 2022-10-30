@@ -12,6 +12,8 @@ const App: React.FC = () => {
   const [formAccept, setFormAccept] = useState<boolean>(false);
   const [formGender, setFormGender] = useState<string>('man');
   const [formList, setFormList] = useState<FormProps[]>([]);
+  const [searchIn, setSearchIn] = useState<string>('title');
+  const [sortBy, setSortBy] = useState<string>('publishedAt');
 
   return (
     <Context.Provider
@@ -30,6 +32,10 @@ const App: React.FC = () => {
         setFormAccept,
         formList,
         setFormList,
+        searchIn,
+        setSearchIn,
+        sortBy,
+        setSortBy,
       }}
     >
       <Routes>

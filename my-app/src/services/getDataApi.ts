@@ -16,7 +16,7 @@ export const getNews = async () => {
   return await getData(url);
 };
 
-export const searchNews = async (query: string) => {
-  const url = `everything?searchIn=title&q=${query}&apiKey=${API_KEY}`;
+export const searchNews = async (query: string, where = 'title', sort = 'publishedAt') => {
+  const url = `everything?searchIn=${where}&q=${query}&sortBy=${sort}&apiKey=${API_KEY}`;
   return await getData(url);
 };

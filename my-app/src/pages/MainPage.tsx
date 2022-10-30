@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Layout, SearchPanel, CardsAlbum } from 'components';
+import { Layout, SearchPanel, CardsAlbum, SortSelectBy, SortSelectIn } from 'components';
 import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
 import CardProps from '../types/Card';
@@ -43,6 +43,11 @@ const MainPage: React.FC = () => {
     <Layout>
       <SearchPanel onSearch={onSubmit} />
       <Headling>Hot news on Racoon digest</Headling>
+      <SearchBlock>
+        <p>Searching by:</p>
+        <SortSelectIn options={['title', 'description']} />
+        <SortSelectBy options={['publishedAt', 'relevancy', 'popularity']} />
+      </SearchBlock>
       <Message data-testid="fail-message">{message}</Message>
       <CardsAlbum cards={news} />
     </Layout>
@@ -66,6 +71,16 @@ const Message = styled.p`
   font-size: 16px;
   font-weight: 700;
   color: var(--accent);
+`;
+
+const SearchBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 20px;
+  gap: 20px;
+  background-color: var(--second-contrast);
+  font-size: 14px;
 `;
 
 export default MainPage;

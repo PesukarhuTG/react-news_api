@@ -8,3 +8,5 @@ export { default as FormCard } from './FormCard';
 export { default as FormCardsAlbum } from './FormCardsAlbum';
 export { default as Spinner } from './Spinner';
 export { default as Modal } from './Modal';
+export { default as SortSelectBy } from './SortSelectBy';
+export { default as SortSelectIn } from './SortSelectIn';

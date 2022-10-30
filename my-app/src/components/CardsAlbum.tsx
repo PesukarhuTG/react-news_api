@@ -12,8 +12,6 @@ const CardsAlbum: React.FC<CardListProps> = ({ cards }) => {
     return <Spinner />;
   }
 
-  cards.length = 20;
-
   return (
     <Album>
       {cards.map((item: CardProps, index: number) => {
