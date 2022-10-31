@@ -23,6 +23,7 @@ const App: React.FC = () => {
   );
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPageAmount, setTotalPageAmount] = useState<number>(100);
+  const [pageSize, setPageSize] = useState<number>(10);
 
   return (
     <Context.Provider
@@ -53,6 +54,8 @@ const App: React.FC = () => {
         setCurrentPage,
         totalPageAmount,
         setTotalPageAmount,
+        pageSize,
+        setPageSize,
       }}
     >
       <Routes>

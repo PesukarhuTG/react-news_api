@@ -5,17 +5,25 @@ import styled from 'styled-components';
 interface PaginationProps {
   page?: number;
   total?: number;
-  onChange?: (page: number) => void;
+  pageSize: number;
+  onChange?: (page: number, pageSize: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ page = 1, onChange = () => {}, total = 100 }) => {
+const Pagination: React.FC<PaginationProps> = ({
+  pageSize,
+  page = 1,
+  onChange = () => {},
+  total = 100,
+}) => {
   return (
     <StyledPagination
       showQuickJumper
+      showSizeChanger
       defaultCurrent={1}
       total={total}
       onChange={onChange}
       current={page}
+      pageSize={pageSize}
     />
   );
 };
@@ -68,7 +76,8 @@ const StyledPagination = styled(AntdPagination)`
   }
 
   .ant-pagination-options-quick-jumper input {
-    color: var(--second-contrast);
+    color: var(--main-color);
+    background-color: var(--second-contrast) !important;
     outline: none;
   }
 `;

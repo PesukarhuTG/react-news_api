@@ -21,6 +21,7 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
     sortDateTo,
     currentPage,
     setTotalPageAmount,
+    pageSize,
   } = useContext(Context);
 
   const onChange = (searchValue: string): void => {
@@ -30,14 +31,20 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
   const handleSubmit = async () => {
     try {
       if (searchVal) {
-        await searchNews(searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage).then(
-          (resp) => {
-            onSearch(resp.articles);
-            setTotalPageAmount(resp.totalResults > 100 ? 100 : resp.totalResults);
-          }
-        );
+        await searchNews(
+          searchVal,
+          searchIn,
+          sortBy,
+          sortDateFrom,
+          sortDateTo,
+          currentPage,
+          pageSize
+        ).then((resp) => {
+          onSearch(resp.articles);
+          setTotalPageAmount(resp.totalResults > 100 ? 100 : resp.totalResults);
+        });
       } else {
-        await getNews(currentPage).then((resp) => {
+        await getNews(currentPage, pageSize).then((resp) => {
           onSearch(resp.articles);
           setTotalPageAmount(resp.totalResults > 100 ? 100 : resp.totalResults);
         });

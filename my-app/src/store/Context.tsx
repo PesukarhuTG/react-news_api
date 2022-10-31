@@ -28,6 +28,8 @@ interface GlobalContent {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   totalPageAmount: number;
   setTotalPageAmount: React.Dispatch<React.SetStateAction<number>>;
+  pageSize: number;
+  setPageSize: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const Context = React.createContext<GlobalContent>({
@@ -57,4 +59,6 @@ export const Context = React.createContext<GlobalContent>({
   setCurrentPage: () => {},
   totalPageAmount: 100,
   setTotalPageAmount: () => {},
+  pageSize: 10,
+  setPageSize: () => {},
 });

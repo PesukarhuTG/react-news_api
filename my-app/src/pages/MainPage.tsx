@@ -28,6 +28,8 @@ const MainPage: React.FC = () => {
     setCurrentPage,
     totalPageAmount,
     setTotalPageAmount,
+    pageSize,
+    setPageSize,
   } = useContext(Context);
 
   const onSubmit = (data: CardProps[]): void => {
@@ -48,7 +50,8 @@ const MainPage: React.FC = () => {
           sortBy,
           sortDateFrom,
           sortDateTo,
-          currentPage
+          currentPage,
+          pageSize
         ).then((resp) => resp);
 
         if (!data.articles.length) {
@@ -59,7 +62,7 @@ const MainPage: React.FC = () => {
           setTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults);
         }
       } else {
-        const data = await getNews(currentPage).then((resp) => resp);
+        const data = await getNews(currentPage, pageSize).then((resp) => resp);
         setNews(data.articles);
         setTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults);
       }
@@ -67,7 +70,7 @@ const MainPage: React.FC = () => {
 
     checkData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchIn, sortBy, sortDateFrom, sortDateTo, currentPage]);
+  }, [searchIn, sortBy, sortDateFrom, sortDateTo, currentPage, pageSize]);
 
   return (
     <Layout>
@@ -88,8 +91,12 @@ const MainPage: React.FC = () => {
       <CardsAlbum cards={news} />
       <Pagination
         page={currentPage}
-        onChange={(page) => setCurrentPage(page)}
+        onChange={(page, pageSize) => {
+          setCurrentPage(page);
+          setPageSize(pageSize);
+        }}
         total={totalPageAmount}
+        pageSize={pageSize}
       />
     </Layout>
   );
