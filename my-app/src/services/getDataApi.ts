@@ -20,7 +20,7 @@ export const searchNews = async (
   query: string,
   where = 'title',
   sort = 'publishedAt',
-  dateFrom = '2022-10-25',
+  dateFrom = '2022-10-01',
   dateTo = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
   page = 1,
   pageSize = 10

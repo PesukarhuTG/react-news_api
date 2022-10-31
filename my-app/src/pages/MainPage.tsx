@@ -17,8 +17,18 @@ import { Context } from 'store/Context';
 const MainPage: React.FC = () => {
   const [news, setNews] = useState<CardProps[]>([]);
   const [message, setMessage] = useState<string>('');
-  const { searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage, setCurrentPage } =
-    useContext(Context);
+
+  const {
+    searchVal,
+    searchIn,
+    sortBy,
+    sortDateFrom,
+    sortDateTo,
+    currentPage,
+    setCurrentPage,
+    totalPageAmount,
+    setTotalPageAmount,
+  } = useContext(Context);
 
   const onSubmit = (data: CardProps[]): void => {
     if (!data.length) {
@@ -32,23 +42,26 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     const checkData = async (): Promise<void> => {
       if (searchVal) {
-        const articles = await searchNews(
+        const data = await searchNews(
           searchVal,
           searchIn,
           sortBy,
           sortDateFrom,
           sortDateTo,
           currentPage
-        ).then((resp) => resp.articles);
-        if (!articles.length) {
+        ).then((resp) => resp);
+
+        if (!data.articles.length) {
           setMessage('Sorry, your request is failed');
         } else {
           setMessage('');
-          setNews(articles);
+          setNews(data.articles);
+          setTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults);
         }
       } else {
-        const articles = await getNews(currentPage).then((resp) => resp.articles);
-        setNews(articles);
+        const data = await getNews(currentPage).then((resp) => resp);
+        setNews(data.articles);
+        setTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults);
       }
     };
 
@@ -73,7 +86,11 @@ const MainPage: React.FC = () => {
       </SortWrapper>
       <Message data-testid="fail-message">{message}</Message>
       <CardsAlbum cards={news} />
-      <Pagination page={currentPage} onChange={(page) => setCurrentPage(page)} total={100} />
+      <Pagination
+        page={currentPage}
+        onChange={(page) => setCurrentPage(page)}
+        total={totalPageAmount}
+      />
     </Layout>
   );
 };

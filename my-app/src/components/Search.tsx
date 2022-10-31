@@ -12,8 +12,16 @@ interface SearchProps {
 }
 
 const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
-  const { searchVal, setSearchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage } =
-    useContext(Context);
+  const {
+    searchVal,
+    setSearchVal,
+    searchIn,
+    sortBy,
+    sortDateFrom,
+    sortDateTo,
+    currentPage,
+    setTotalPageAmount,
+  } = useContext(Context);
 
   const onChange = (searchValue: string): void => {
     setSearchVal(searchValue);
@@ -25,11 +33,13 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
         await searchNews(searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage).then(
           (resp) => {
             onSearch(resp.articles);
+            setTotalPageAmount(resp.totalResults > 100 ? 100 : resp.totalResults);
           }
         );
       } else {
         await getNews(currentPage).then((resp) => {
           onSearch(resp.articles);
+          setTotalPageAmount(resp.totalResults > 100 ? 100 : resp.totalResults);
         });
       }
     } catch (e) {

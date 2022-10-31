@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { MainPage, AboutPage, NotFound, FormPage } from './pages';
 import { Context } from './store/Context';
 import FormProps from 'types/Form';
+import { getZero } from './services/getZero';
 
 const App: React.FC = () => {
   const [searchVal, setSearchVal] = useState<string>('');
@@ -14,11 +15,14 @@ const App: React.FC = () => {
   const [formList, setFormList] = useState<FormProps[]>([]);
   const [searchIn, setSearchIn] = useState<string>('title');
   const [sortBy, setSortBy] = useState<string>('publishedAt');
-  const [sortDateFrom, setDateFrom] = useState<string>('2022-10-25');
+  const [sortDateFrom, setDateFrom] = useState<string>('2022-10-01');
   const [sortDateTo, setDateTo] = useState<string>(
-    `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+    `${new Date().getFullYear()}-${getZero(new Date().getMonth() + 1)}-${getZero(
+      new Date().getDate()
+    )}`
   );
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPageAmount, setTotalPageAmount] = useState<number>(100);
 
   return (
     <Context.Provider
@@ -47,6 +51,8 @@ const App: React.FC = () => {
         setDateTo,
         currentPage,
         setCurrentPage,
+        totalPageAmount,
+        setTotalPageAmount,
       }}
     >
       <Routes>
