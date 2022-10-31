@@ -12,3 +12,4 @@ export { default as SortSelectBy } from './SortSelectBy';
 export { default as SortSelectIn } from './SortSelectIn';
 export { default as SortDateFrom } from './SortDateFrom';
 export { default as SortDateTo } from './SortDateTo';
+export { default as Pagination } from './Pagination';

@@ -5,6 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import { MainPage } from '../pages';
 
 describe('Main page tests', () => {
+  window.matchMedia =
+    window.matchMedia ||
+    function () {
+      return {
+        matches: false,
+        addListener: function () {},
+        removeListener: function () {},
+      };
+    };
+
   test('render Main page', () => {
     render(
       <BrowserRouter>

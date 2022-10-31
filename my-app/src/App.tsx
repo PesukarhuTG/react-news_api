@@ -18,6 +18,7 @@ const App: React.FC = () => {
   const [sortDateTo, setDateTo] = useState<string>(
     `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
   );
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   return (
     <Context.Provider
@@ -44,6 +45,8 @@ const App: React.FC = () => {
         setDateFrom,
         sortDateTo,
         setDateTo,
+        currentPage,
+        setCurrentPage,
       }}
     >
       <Routes>

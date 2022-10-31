@@ -41,6 +41,16 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe('Modal tests', () => {
+  window.matchMedia =
+    window.matchMedia ||
+    function () {
+      return {
+        matches: false,
+        addListener: function () {},
+        removeListener: function () {},
+      };
+    };
+
   test('open modal window with info of 1st card', async () => {
     render(
       <BrowserRouter>

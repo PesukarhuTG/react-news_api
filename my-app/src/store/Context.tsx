@@ -24,6 +24,8 @@ interface GlobalContent {
   setDateFrom: React.Dispatch<React.SetStateAction<string>>;
   sortDateTo: string;
   setDateTo: React.Dispatch<React.SetStateAction<string>>;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const Context = React.createContext<GlobalContent>({
@@ -49,4 +51,6 @@ export const Context = React.createContext<GlobalContent>({
   setDateFrom: () => {},
   sortDateTo: '',
   setDateTo: () => {},
+  currentPage: 1,
+  setCurrentPage: () => {},
 });

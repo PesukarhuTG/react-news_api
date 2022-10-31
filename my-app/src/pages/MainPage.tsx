@@ -7,6 +7,7 @@ import {
   SortSelectIn,
   SortDateFrom,
   SortDateTo,
+  Pagination,
 } from 'components';
 import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
@@ -16,7 +17,8 @@ import { Context } from 'store/Context';
 const MainPage: React.FC = () => {
   const [news, setNews] = useState<CardProps[]>([]);
   const [message, setMessage] = useState<string>('');
-  const { searchVal } = useContext(Context);
+  const { searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage, setCurrentPage } =
+    useContext(Context);
 
   const onSubmit = (data: CardProps[]): void => {
     if (!data.length) {
@@ -30,7 +32,14 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     const checkData = async (): Promise<void> => {
       if (searchVal) {
-        const articles = await searchNews(searchVal).then((resp) => resp.articles);
+        const articles = await searchNews(
+          searchVal,
+          searchIn,
+          sortBy,
+          sortDateFrom,
+          sortDateTo,
+          currentPage
+        ).then((resp) => resp.articles);
         if (!articles.length) {
           setMessage('Sorry, your request is failed');
         } else {
@@ -38,14 +47,14 @@ const MainPage: React.FC = () => {
           setNews(articles);
         }
       } else {
-        const articles = await getNews().then((resp) => resp.articles);
+        const articles = await getNews(currentPage).then((resp) => resp.articles);
         setNews(articles);
       }
     };
 
     checkData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchIn, sortBy, sortDateFrom, sortDateTo, currentPage]);
 
   return (
     <Layout>
@@ -64,6 +73,7 @@ const MainPage: React.FC = () => {
       </SortWrapper>
       <Message data-testid="fail-message">{message}</Message>
       <CardsAlbum cards={news} />
+      <Pagination page={currentPage} onChange={(page) => setCurrentPage(page)} total={100} />
     </Layout>
   );
 };

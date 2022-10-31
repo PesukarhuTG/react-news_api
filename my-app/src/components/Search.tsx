@@ -12,7 +12,7 @@ interface SearchProps {
 }
 
 const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
-  const { searchVal, setSearchVal, sortBy, searchIn, sortDateFrom, sortDateTo } =
+  const { searchVal, setSearchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage } =
     useContext(Context);
 
   const onChange = (searchValue: string): void => {
@@ -22,11 +22,13 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
   const handleSubmit = async () => {
     try {
       if (searchVal) {
-        await searchNews(searchVal, searchIn, sortBy, sortDateFrom, sortDateTo).then((resp) => {
-          onSearch(resp.articles);
-        });
+        await searchNews(searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage).then(
+          (resp) => {
+            onSearch(resp.articles);
+          }
+        );
       } else {
-        await getNews().then((resp) => {
+        await getNews(currentPage).then((resp) => {
           onSearch(resp.articles);
         });
       }
