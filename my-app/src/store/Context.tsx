@@ -32,7 +32,7 @@ interface GlobalContent {
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const Context = React.createContext<GlobalContent>({
+const initialState = {
   searchVal: '',
   setSearchVal: () => {},
   formName: '',
@@ -61,4 +61,6 @@ export const Context = React.createContext<GlobalContent>({
   setTotalPageAmount: () => {},
   pageSize: 10,
   setPageSize: () => {},
-});
+};
+
+export const Context = React.createContext<GlobalContent>(initialState);
