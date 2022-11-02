@@ -24,10 +24,6 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
     pageSize,
   } = useNewsContext();
 
-  const onChange = (searchValue: string): void => {
-    setSearchValue(searchValue);
-  };
-
   const handleSubmit = async () => {
     try {
       if (searchVal) {
@@ -57,7 +53,7 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
   return (
     <StyledSearch
       placeholder="Search..."
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => setSearchValue(e.target.value)}
       onSearch={handleSubmit}
       value={searchVal}
       data-testid="input-search"

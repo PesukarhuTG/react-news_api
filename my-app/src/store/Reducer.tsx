@@ -1,7 +1,7 @@
 import FormProps from '../types/Form';
 import { getZero } from '../services/getZero';
 
-interface GlobalContent {
+interface State {
   searchVal: string;
   formName: string;
   formDate: string;
@@ -56,7 +56,7 @@ export const initialState = {
   setPageSize: () => {},
 };
 
-export const Reducer = (state: GlobalContent, action: Action) => {
+export const Reducer = (state: State, action: Action) => {
   const { type, payload } = action;
 
   switch (type) {
