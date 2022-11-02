@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Context } from 'store/Context';
+import useNewsContext from '../store/Context';
 
 const SortDateTo = () => {
-  const { sortDateTo, setDateTo } = useContext(Context);
+  const { sortDateTo, setSortDateTo } = useNewsContext();
 
   return (
     <label>
@@ -12,7 +12,7 @@ const SortDateTo = () => {
         name="date-from"
         type="date"
         value={sortDateTo}
-        onChange={(e) => setDateTo(e.target.value)}
+        onChange={(e) => setSortDateTo(e.target.value)}
       />
     </label>
   );

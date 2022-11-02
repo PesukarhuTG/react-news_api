@@ -11,19 +11,19 @@ const getData = (restUrl: string) =>
     })
     .catch((err) => console.error(err));
 
-export const getNews = async (page = 1, pageSize = 10) => {
+export const getNews = async (page: number, pageSize: number) => {
   const url = `top-headlines?country=us&page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`;
   return await getData(url);
 };
 
 export const searchNews = async (
   query: string,
-  where = 'title',
-  sort = 'publishedAt',
-  dateFrom = '2022-10-01',
-  dateTo = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  page = 1,
-  pageSize = 10
+  where: string,
+  sort: string,
+  dateFrom: string,
+  dateTo: string,
+  page: number,
+  pageSize: number
 ) => {
   const url = `everything?searchIn=${where}&q=${query}&sortBy=${sort}&from=${dateFrom}&to=${dateTo}&page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`;
   return await getData(url);

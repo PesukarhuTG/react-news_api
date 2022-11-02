@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FormProps from '../types/Form';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Context } from 'store/Context';
+import useNewsContext from '../store/Context';
 
 interface LoginFormProps {
   onSubmit: (data: FormProps) => void;
@@ -22,7 +22,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     setFormGender,
     formAccept,
     setFormAccept,
-  } = useContext(Context);
+  } = useNewsContext();
   const {
     register,
     handleSubmit,

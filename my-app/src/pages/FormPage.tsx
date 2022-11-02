@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import FormProps from '../types/Form';
 import { Layout, Form, FormCardsAlbum } from '../components';
-import { Context } from 'store/Context';
+import useNewsContext from '../store/Context';
 
 const FormPage: React.FC = () => {
   const [message, setMessage] = useState<string>('');
-  const { formList, setFormList } = useContext(Context);
+  const { formList, setFormList } = useNewsContext();
 
   const onSubmit = (formFields: FormProps) => {
     const currentList = formList;

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Input } from 'antd';
 import CardProps from '../types/Card';
 import { getNews, searchNews } from '../services/getDataApi';
-import { Context } from 'store/Context';
+import useNewsContext from '../store/Context';
 
 const { Search } = Input;
 
@@ -14,7 +14,7 @@ interface SearchProps {
 const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
   const {
     searchVal,
-    setSearchVal,
+    setSearchValue,
     searchIn,
     sortBy,
     sortDateFrom,
@@ -22,10 +22,10 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
     currentPage,
     setTotalPageAmount,
     pageSize,
-  } = useContext(Context);
+  } = useNewsContext();
 
   const onChange = (searchValue: string): void => {
-    setSearchVal(searchValue);
+    setSearchValue(searchValue);
   };
 
   const handleSubmit = async () => {

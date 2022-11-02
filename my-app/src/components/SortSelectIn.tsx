@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Context } from 'store/Context';
+import useNewsContext from '../store/Context';
 
 interface SortProps {
   options: string[];
 }
 
 const SortSelectIn: React.FC<SortProps> = ({ options }) => {
-  const { searchIn, setSearchIn } = useContext(Context);
+  const { searchIn, setSearchIn } = useNewsContext();
 
   return (
     <label>

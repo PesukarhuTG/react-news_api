@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Layout,
   SearchPanel,
@@ -12,7 +12,7 @@ import {
 import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
 import CardProps from '../types/Card';
-import { Context } from 'store/Context';
+import useNewsContext from '../store/Context';
 
 const MainPage: React.FC = () => {
   const [news, setNews] = useState<CardProps[]>([]);
@@ -30,7 +30,7 @@ const MainPage: React.FC = () => {
     setTotalPageAmount,
     pageSize,
     setPageSize,
-  } = useContext(Context);
+  } = useNewsContext();
 
   const onSubmit = (data: CardProps[]): void => {
     if (!data.length) {
