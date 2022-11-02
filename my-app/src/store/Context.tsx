@@ -17,6 +17,7 @@ interface GlobalContent {
   currentPage: number;
   totalPageAmount: number;
   pageSize: number;
+  selectedFile: null | string;
   setSearchValue: (searchVal: string) => void;
   setFormName: (formName: string) => void;
   setFormDate: (formDate: string) => void;
@@ -31,6 +32,7 @@ interface GlobalContent {
   setCurrentPage: (currentPage: number) => void;
   setTotalPageAmount: (totalPageAmount: number) => void;
   setPageSize: (pageSize: number) => void;
+  setSelectedFile: (selectedFile: null | string) => void;
 }
 
 interface Props {
@@ -168,6 +170,15 @@ export const Provider = ({ children }: Props) => {
     });
   };
 
+  const setSelectedFile = (selectedFile: null | string) => {
+    dispatch({
+      type: 'CHANGE_FILE',
+      payload: {
+        selectedFile: selectedFile,
+      },
+    });
+  };
+
   const value: GlobalContent = {
     searchVal: state.searchVal,
     formName: state.formName,
@@ -183,6 +194,7 @@ export const Provider = ({ children }: Props) => {
     currentPage: state.currentPage,
     totalPageAmount: state.totalPageAmount,
     pageSize: state.pageSize,
+    selectedFile: state.selectedFile,
     setSearchValue,
     setFormName,
     setFormDate,
@@ -197,6 +209,7 @@ export const Provider = ({ children }: Props) => {
     setCurrentPage,
     setTotalPageAmount,
     setPageSize,
+    setSelectedFile,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

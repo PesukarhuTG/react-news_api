@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import FormProps from '../types/Form';
 
-const FormCard: React.FC<FormProps> = ({ name, birthday, city, gender, file }) => {
+const FormCard: React.FC<FormProps> = ({ name, birthday, city, gender, selectedFile }) => {
   return (
     <Item data-testid="form-card">
       <CardImage
         style={{
-          backgroundImage: `url(${file})`,
+          backgroundImage: `url(${selectedFile})`,
         }}
       />
       <Description>

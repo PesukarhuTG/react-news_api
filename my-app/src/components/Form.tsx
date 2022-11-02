@@ -10,7 +10,7 @@ interface LoginFormProps {
 
 const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const [disabled, setDisabled] = useState<boolean>(true);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   const {
     formName,
     setFormName,
@@ -22,29 +22,30 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     setFormGender,
     formAccept,
     setFormAccept,
+    selectedFile,
+    setSelectedFile,
   } = useNewsContext();
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormProps>();
+  } = useForm<FormProps>({
+    defaultValues: {
+      selectedFile: selectedFile,
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
-      setSelectedFile(e.target.files[0]);
+      const imgURL = URL.createObjectURL(e.target.files[0]);
+      setSelectedFile(imgURL);
     }
   };
 
   const getDataSubmit: SubmitHandler<FormProps> = (data) => {
-    let file = null;
-
-    if (selectedFile !== null) {
-      const blob = new Blob([selectedFile]);
-      file = URL.createObjectURL(blob);
-    }
-
-    onSubmit({ ...data, file });
+    onSubmit({ ...data, selectedFile });
 
     reset();
     setFormName('');
@@ -53,7 +54,6 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     setFormGender('man');
     setSelectedFile(null);
     setFormAccept(false);
-    setDisabled(true);
   };
 
   useEffect(() => {
@@ -154,7 +154,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
         <span className="input-name">Upload a file</span>
         <input
           className="input-file"
-          {...register('file')}
+          {...register('selectedFile')}
           name="file"
           type="file"
           accept="image/*, .png, .jpg"

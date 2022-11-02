@@ -16,6 +16,7 @@ interface State {
   currentPage: number;
   totalPageAmount: number;
   pageSize: number;
+  selectedFile: null | string;
 }
 
 type Action = {
@@ -40,6 +41,7 @@ export const initialState = {
   currentPage: 1,
   totalPageAmount: 100,
   pageSize: 10,
+  selectedFile: null,
   setSearchValue: () => {},
   setFormName: () => {},
   setFormDate: () => {},
@@ -54,6 +56,7 @@ export const initialState = {
   setCurrentPage: () => {},
   setTotalPageAmount: () => {},
   setPageSize: () => {},
+  setSelectedFile: () => {},
 };
 
 export const Reducer = (state: State, action: Action) => {
@@ -142,6 +145,12 @@ export const Reducer = (state: State, action: Action) => {
       return {
         ...state,
         pageSize: payload.pageSize,
+      };
+
+    case 'CHANGE_FILE':
+      return {
+        ...state,
+        selectedFile: payload.selectedFile,
       };
 
     default:
