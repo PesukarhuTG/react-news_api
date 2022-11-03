@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Layout } from '../components';
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +14,14 @@ const SinglePage: React.FC = () => {
 
   const backMainPage = () => {
     navigate('/', { replace: true });
-    setDisableCurrentPosition(true);
   };
+
+  useEffect(() => {
+    return () => {
+      setDisableCurrentPosition(true);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Layout>
