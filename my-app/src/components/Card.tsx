@@ -2,9 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import CardProps from '../types/Card';
 
-const Card: React.FC<CardProps> = ({ author, description, publishedAt, title, urlToImage }) => {
+interface Props {
+  item: CardProps;
+  index: number;
+}
+
+const Card: React.FC<Props> = ({ item, index }) => {
+  const { author, description, publishedAt, title, urlToImage } = item;
+
   const saveData = () => {
-    const newsData = { title, urlToImage, description, publishedAt, author };
+    const newsData = { author, description, publishedAt, title, urlToImage, index };
     localStorage.setItem('newsItem', JSON.stringify(newsData));
   };
 
@@ -31,16 +38,7 @@ const Item = styled.li`
   position: relative;
   padding-bottom: 10px;
   width: 100%;
-  overflow: hidden;
-  background-color: var(--second-contrast);
-  border-radius: 10px;
   list-style: none;
-  transition: 0.3s all;
-
-  &:hover {
-    box-shadow: 0 0 15px 0 var(--primary);
-    cursor: pointer;
-  }
 `;
 
 const Title = styled.p`

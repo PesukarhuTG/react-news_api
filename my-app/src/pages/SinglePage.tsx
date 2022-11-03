@@ -2,27 +2,30 @@ import React from 'react';
 import styled from 'styled-components';
 import { Layout } from '../components';
 import { useNavigate } from 'react-router-dom';
+import useNewsContext from '../store/Context';
 
 const SinglePage: React.FC = () => {
   const storedData = localStorage.getItem('newsItem') as string | null;
   const data = storedData ? JSON.parse(storedData) : '';
   const navigate = useNavigate();
+  const { currentPage } = useNewsContext();
 
   return (
     <Layout>
       <Button onClick={() => navigate('/', { replace: true })}>❮ Back to main page</Button>
       <Wrapper>
-        <Title>News:</Title>
+        <Title>
+          Current position: page #{currentPage}, news #{data.index}
+        </Title>
         {data && (
           <>
-            <InfoWrapper>
-              <NewsImage
-                style={{
-                  backgroundImage: `url(${data.urlToImage || '../assets/img/no-poster.jpg'}`,
-                }}
-              />
-              <NewsFullTitle>{data.title}</NewsFullTitle>
-            </InfoWrapper>
+            <NewsImage
+              style={{
+                backgroundImage: `url(${data.urlToImage || '../assets/img/no-poster.jpg'}`,
+              }}
+            />
+            <NewsFullTitle>{data.title}</NewsFullTitle>
+
             <NewsFullDescription>
               {data.description || 'Sorry, there is no any description'}
             </NewsFullDescription>
@@ -30,8 +33,12 @@ const SinglePage: React.FC = () => {
               Link to full news ►
             </LinkToFullNews>
             <InfoWrapper>
-              <p>Published date: {data.publishedAt.slice(0, 10)}</p>
-              <p>Author: {data.author || 'unnamed'}</p>
+              <p>
+                <strong>Published date:</strong> {data.publishedAt.slice(0, 10)}
+              </p>
+              <p>
+                <strong>Author:</strong> {data.author || 'unnamed'}
+              </p>
             </InfoWrapper>
           </>
         )}
@@ -47,9 +54,12 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h2`
+  margin: 40px 0 20px;
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
+  padding: 20px;
+  background-color: var(--second-contrast);
 `;
 
 const InfoWrapper = styled.div`
@@ -63,18 +73,19 @@ const InfoWrapper = styled.div`
 `;
 
 const NewsImage = styled.div`
-  width: 200px;
-  height: 100px;
+  width: 100%;
+  height: 240px;
+  margin-bottom: 20px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 `;
 
 const NewsFullTitle = styled.p`
-  width: 66%;
   font-size: 18px;
   color: var(--primary);
-  margin: 0 10px;
+  margin-bottom: 20px;
+  text-align: center;
   text-transform: uppercase;
 `;
 
