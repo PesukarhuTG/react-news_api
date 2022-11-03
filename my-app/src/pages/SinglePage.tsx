@@ -3,45 +3,47 @@ import styled from 'styled-components';
 import { Layout } from '../components';
 import { useNavigate } from 'react-router-dom';
 import useNewsContext from '../store/Context';
+import SavedCardProps from '../types/SavedCardData';
 
 const SinglePage: React.FC = () => {
-  const storedData = localStorage.getItem('newsItem') as string | null;
-  const data = storedData ? JSON.parse(storedData) : '';
   const navigate = useNavigate();
-  const { currentPage } = useNewsContext();
+  const { savedCardData, setDisableCurrentPosition } = useNewsContext();
+
+  const { author, description, publishedAt, title, urlToImage, url } =
+    savedCardData as SavedCardProps;
+
+  const backMainPage = () => {
+    navigate('/', { replace: true });
+    setDisableCurrentPosition(true);
+  };
 
   return (
     <Layout>
-      <Button onClick={() => navigate('/', { replace: true })}>❮ Back to main page</Button>
       <Wrapper>
-        <Title>
-          Current position: page #{currentPage}, news #{data.index}
-        </Title>
-        {data && (
-          <>
-            <NewsImage
-              style={{
-                backgroundImage: `url(${data.urlToImage || '../assets/img/no-poster.jpg'}`,
-              }}
-            />
-            <NewsFullTitle>{data.title}</NewsFullTitle>
+        <NewsImage
+          style={{
+            backgroundImage: `url(${urlToImage || '../assets/img/no-poster.jpg'}`,
+          }}
+        />
+        <NewsFullTitle>{title}</NewsFullTitle>
 
-            <NewsFullDescription>
-              {data.description || 'Sorry, there is no any description'}
-            </NewsFullDescription>
-            <LinkToFullNews href={data.url} target={'_blank'}>
-              Link to full news ►
-            </LinkToFullNews>
-            <InfoWrapper>
-              <p>
-                <strong>Published date:</strong> {data.publishedAt.slice(0, 10)}
-              </p>
-              <p>
-                <strong>Author:</strong> {data.author || 'unnamed'}
-              </p>
-            </InfoWrapper>
-          </>
-        )}
+        <NewsFullDescription>
+          {description || 'Sorry, there is no any description'}
+        </NewsFullDescription>
+        <InfoWrapper>
+          <p>
+            <strong>Published date:</strong> {publishedAt ? publishedAt.slice(0, 10) : 'no date'}
+          </p>
+          <p>
+            <strong>Author:</strong> {author || 'unnamed'}
+          </p>
+        </InfoWrapper>
+        <InfoWrapper>
+          <Button onClick={backMainPage}>❮ Back to main page</Button>
+          <a href={url} target="_blank" rel="noreferrer noopener">
+            <Button>Link to full news ❯</Button>
+          </a>
+        </InfoWrapper>
       </Wrapper>
     </Layout>
   );
@@ -51,15 +53,6 @@ const Wrapper = styled.div`
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
-`;
-
-const Title = styled.h2`
-  margin: 40px 0 20px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  padding: 20px;
-  background-color: var(--second-contrast);
 `;
 
 const InfoWrapper = styled.div`
@@ -75,7 +68,7 @@ const InfoWrapper = styled.div`
 const NewsImage = styled.div`
   width: 100%;
   height: 240px;
-  margin-bottom: 20px;
+  margin: 40px 0 20px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -91,14 +84,8 @@ const NewsFullTitle = styled.p`
 
 const NewsFullDescription = styled.p`
   font-size: 14px;
-`;
-
-const LinkToFullNews = styled.a`
-  display: block;
-  margin: 10px 0;
-  font-size: 14px;
-  color: var(--primary);
-  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px dotted var(--main-color);
 `;
 
 const Button = styled.button`
@@ -113,7 +100,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: 0.3s;
   &:hover {
-    opacity: 0.9;
+    background-color: var(--button-hover);
   }
 `;
 

@@ -1,4 +1,5 @@
 import FormProps from '../types/Form';
+import SavedCardProps from '../types/SavedCardData';
 import { getZero } from '../services/getZero';
 
 interface State {
@@ -17,6 +18,8 @@ interface State {
   totalPageAmount: number;
   pageSize: number;
   selectedFile: null | string;
+  savedCardData: SavedCardProps | null;
+  disableCurrentPosition: boolean;
 }
 
 type Action = {
@@ -42,6 +45,16 @@ export const initialState = {
   totalPageAmount: 100,
   pageSize: 10,
   selectedFile: null,
+  savedCardData: {
+    author: '',
+    description: '',
+    publishedAt: '',
+    title: '',
+    url: '',
+    urlToImage: '',
+    index: 0,
+  },
+  disableCurrentPosition: true,
   setSearchValue: () => {},
   setFormName: () => {},
   setFormDate: () => {},
@@ -57,6 +70,8 @@ export const initialState = {
   setTotalPageAmount: () => {},
   setPageSize: () => {},
   setSelectedFile: () => {},
+  setSavedCardData: () => {},
+  setDisableCurrentPosition: () => {},
 };
 
 export const Reducer = (state: State, action: Action) => {
@@ -151,6 +166,18 @@ export const Reducer = (state: State, action: Action) => {
       return {
         ...state,
         selectedFile: payload.selectedFile,
+      };
+
+    case 'CHANGE_SAVED_CARD_DATA':
+      return {
+        ...state,
+        savedCardData: payload.savedCardData,
+      };
+
+    case 'CURRENT_POSITION_INFO':
+      return {
+        ...state,
+        disableCurrentPosition: payload.disableCurrentPosition,
       };
 
     default:

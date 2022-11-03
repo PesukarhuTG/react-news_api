@@ -13,3 +13,4 @@ export { default as SortSelectIn } from './SortSelectIn';
 export { default as SortDateFrom } from './SortDateFrom';
 export { default as SortDateTo } from './SortDateTo';
 export { default as Pagination } from './Pagination';
+export { default as TitleCurrentPosition } from './TitleCurrentPosition';

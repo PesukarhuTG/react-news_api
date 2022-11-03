@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useContext } from 'react';
 import FormProps from '../types/Form';
 import { initialState, Reducer } from '../store/Reducer';
+import SavedCardProps from '../types/SavedCardData';
 
 interface GlobalContent {
   searchVal: string;
@@ -18,6 +19,8 @@ interface GlobalContent {
   totalPageAmount: number;
   pageSize: number;
   selectedFile: null | string;
+  savedCardData: SavedCardProps;
+  disableCurrentPosition: boolean;
   setSearchValue: (searchVal: string) => void;
   setFormName: (formName: string) => void;
   setFormDate: (formDate: string) => void;
@@ -33,6 +36,8 @@ interface GlobalContent {
   setTotalPageAmount: (totalPageAmount: number) => void;
   setPageSize: (pageSize: number) => void;
   setSelectedFile: (selectedFile: null | string) => void;
+  setSavedCardData: (savedCardData: SavedCardProps) => void;
+  setDisableCurrentPosition: (disableCurrentPosition: boolean) => void;
 }
 
 interface Props {
@@ -179,6 +184,24 @@ export const Provider = ({ children }: Props) => {
     });
   };
 
+  const setSavedCardData = (savedCardData: SavedCardProps) => {
+    dispatch({
+      type: 'CHANGE_SAVED_CARD_DATA',
+      payload: {
+        savedCardData: savedCardData,
+      },
+    });
+  };
+
+  const setDisableCurrentPosition = (disableCurrentPosition: boolean) => {
+    dispatch({
+      type: 'CURRENT_POSITION_INFO',
+      payload: {
+        disableCurrentPosition: disableCurrentPosition,
+      },
+    });
+  };
+
   const value: GlobalContent = {
     searchVal: state.searchVal,
     formName: state.formName,
@@ -195,6 +218,8 @@ export const Provider = ({ children }: Props) => {
     totalPageAmount: state.totalPageAmount,
     pageSize: state.pageSize,
     selectedFile: state.selectedFile,
+    savedCardData: state.savedCardData,
+    disableCurrentPosition: state.disableCurrentPosition,
     setSearchValue,
     setFormName,
     setFormDate,
@@ -210,6 +235,8 @@ export const Provider = ({ children }: Props) => {
     setTotalPageAmount,
     setPageSize,
     setSelectedFile,
+    setSavedCardData,
+    setDisableCurrentPosition,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

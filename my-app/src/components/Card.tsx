@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CardProps from '../types/Card';
+import useNewsContext from '../store/Context';
 
 interface Props {
   item: CardProps;
@@ -8,15 +9,16 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ item, index }) => {
-  const { author, description, publishedAt, title, urlToImage } = item;
+  const { setSavedCardData, setDisableCurrentPosition } = useNewsContext();
+  const { author, description, publishedAt, title, urlToImage, url } = item;
 
-  const saveData = () => {
-    const newsData = { author, description, publishedAt, title, urlToImage, index };
-    localStorage.setItem('newsItem', JSON.stringify(newsData));
+  const showSeparatePage = () => {
+    setSavedCardData({ author, description, publishedAt, title, urlToImage, url, index });
+    setDisableCurrentPosition(false);
   };
 
   return (
-    <Item data-testid="card-item" onClick={saveData}>
+    <Item data-testid="card-item" onClick={showSeparatePage}>
       <CardImage
         style={{
           backgroundImage: `url(${urlToImage || '../assets/img/no-poster.jpg'}`,
@@ -60,9 +62,7 @@ const Description = styled.p`
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
-
-  max-height: 90px;
-  height: 100%;
+  height: 64px;
   margin: 0 10px;
   font-size: 12px;
 `;
