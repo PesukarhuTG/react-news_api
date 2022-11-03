@@ -1,71 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import CardProps from '../types/Card';
-import { Modal } from './index';
 
-const Card: React.FC<CardProps> = ({
-  author,
-  description,
-  publishedAt,
-  title,
-  urlToImage,
-  url,
-}) => {
-  const [isModal, setIsModal] = useState<boolean>(false);
-  const date: Date = new Date(Date.parse(publishedAt));
-
-  useEffect(() => {
-    if (isModal) {
-      const widthScroll = window.innerWidth - document.body.offsetWidth;
-
-      document.body.style.cssText = `
-          overflow: hidden;
-          padding-right: ${widthScroll}px;
-      `;
-    } else {
-      document.body.style.cssText = '';
-    }
-  }, [isModal]);
-
-  const toggleModal = () => {
-    setIsModal(!isModal);
+const Card: React.FC<CardProps> = ({ author, description, publishedAt, title, urlToImage }) => {
+  const saveData = () => {
+    const newsData = { title, urlToImage, description, publishedAt, author };
+    localStorage.setItem('newsItem', JSON.stringify(newsData));
   };
 
   return (
-    <>
-      <Item data-testid="card-item" onClick={toggleModal}>
-        <CardImage
-          style={{
-            backgroundImage: `url(${urlToImage || '../assets/img/no-poster.jpg'}`,
-          }}
-        />
-        <Title>{title}</Title>
-        <Description>{description || 'Sorry, there is no any description'}</Description>
-        <NewsDate>Data: {publishedAt.slice(0, 10)}</NewsDate>
-        <Author>Author: {author || 'unnamed'}</Author>
-      </Item>
-
-      <Modal visible={isModal} onClose={toggleModal}>
-        <InfoWrapper>
-          <NewsImage
-            style={{
-              backgroundImage: `url(${urlToImage || '../assets/img/no-poster.jpg'}`,
-            }}
-          />
-          <NewsFullTitle>{title}</NewsFullTitle>
-        </InfoWrapper>
-        <NewsFullDescription>
-          {description || 'Sorry, there is no any description'}
-        </NewsFullDescription>
-        <LinkToFullNews href={url} target={'_blank'}>
-          Link to full news ►
-        </LinkToFullNews>
-        <InfoWrapper>
-          <NewsFullDate>{String(date).slice(0, 21)}</NewsFullDate>
-          <NewsFullAuthor>{author || 'unnamed'}</NewsFullAuthor>
-        </InfoWrapper>
-      </Modal>
-    </>
+    <Item data-testid="card-item" onClick={saveData}>
+      <CardImage
+        style={{
+          backgroundImage: `url(${urlToImage || '../assets/img/no-poster.jpg'}`,
+        }}
+      />
+      <Title>{title}</Title>
+      <Description>{description || 'Sorry, there is no any description'}</Description>
+      <NewsDate>Data: {publishedAt.slice(0, 10)}</NewsDate>
+      <Author>Author: {author || 'unnamed'}</Author>
+    </Item>
   );
 };
 
@@ -144,51 +98,6 @@ const CardImage = styled.div`
   background-position: center;
   background-size: cover;
   border-radius: 10px 10px 0 0;
-`;
-
-const InfoWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 20px;
-  margin: 20px 0;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const NewsImage = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-`;
-
-const NewsFullTitle = styled.p`
-  width: 66%;
-  font-size: 18px;
-  color: var(--primary);
-  margin: 0 10px;
-  text-transform: uppercase;
-`;
-
-const NewsFullDescription = styled.p`
-  font-size: 14px;
-`;
-
-const NewsFullDate = styled.p`
-  font-size: 14px;
-`;
-
-const NewsFullAuthor = styled.p`
-  font-size: 14px;
-`;
-
-const LinkToFullNews = styled.a`
-  display: block;
-  margin: 10px 0;
-  font-size: 14px;
-  color: var(--primary);
 `;
 
 export default Card;

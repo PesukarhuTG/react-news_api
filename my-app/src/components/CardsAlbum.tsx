@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CardProps from '../types/Card';
 import { Card, Spinner } from './index';
+import { Link } from 'react-router-dom';
 
 interface CardListProps {
   cards?: CardProps[];
@@ -15,7 +16,11 @@ const CardsAlbum: React.FC<CardListProps> = ({ cards }) => {
   return (
     <Album>
       {cards.map((item: CardProps, index: number) => {
-        return <Card {...item} key={index} />;
+        return (
+          <Link key={index} to={`/news/${item.source?.id || item.source?.name}`}>
+            <Card {...item} />
+          </Link>
+        );
       })}
     </Album>
   );
