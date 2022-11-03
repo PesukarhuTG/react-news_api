@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Layout } from '../components';
+import { useNavigate } from 'react-router-dom';
 
 const SinglePage: React.FC = () => {
   const storedData = localStorage.getItem('newsItem') as string | null;
   const data = storedData ? JSON.parse(storedData) : '';
+  const navigate = useNavigate();
 
   return (
     <Layout>
+      <Button onClick={() => navigate('/', { replace: true })}>❮ Back to main page</Button>
       <Wrapper>
         <Title>News:</Title>
         {data && (
@@ -85,6 +88,22 @@ const LinkToFullNews = styled.a`
   font-size: 14px;
   color: var(--primary);
   text-align: center;
+`;
+
+const Button = styled.button`
+  display: block;
+  max-width: 170px;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: var(--primary);
+  border: 0;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 export default SinglePage;
