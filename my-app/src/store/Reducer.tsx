@@ -52,7 +52,7 @@ export const initialState = {
     title: '',
     url: '',
     urlToImage: '',
-    index: 0,
+    index: null,
   },
   disableCurrentPosition: true,
   setSearchValue: () => {},

@@ -23,25 +23,29 @@ const SinglePage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (!author && !description && !publishedAt && !title && !urlToImage && !url) {
+      navigate('/', { replace: true });
+    }
+  }, [navigate, author, description, publishedAt, title, urlToImage, url]);
+
   return (
     <Layout>
       <Wrapper>
         <NewsImage
           style={{
-            backgroundImage: `url(${urlToImage || '../assets/img/no-poster.jpg'}`,
+            backgroundImage: `url(${urlToImage}`,
           }}
         />
         <NewsFullTitle>{title}</NewsFullTitle>
 
-        <NewsFullDescription>
-          {description || 'Sorry, there is no any description'}
-        </NewsFullDescription>
+        <NewsFullDescription>{description}</NewsFullDescription>
         <InfoWrapper>
           <p>
-            <strong>Published date:</strong> {publishedAt ? publishedAt.slice(0, 10) : 'no date'}
+            <strong>Published date:</strong> {publishedAt}
           </p>
           <p>
-            <strong>Author:</strong> {author || 'unnamed'}
+            <strong>Author:</strong> {author}
           </p>
         </InfoWrapper>
         <InfoWrapper>
