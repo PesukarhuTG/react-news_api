@@ -17,17 +17,15 @@ const SinglePage: React.FC = () => {
   };
 
   useEffect(() => {
+    if (!author && !description && !publishedAt && !title && !urlToImage && !url) {
+      navigate('/', { replace: true });
+    }
+
     return () => {
       setDisableCurrentPosition(true);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (!author && !description && !publishedAt && !title && !urlToImage && !url) {
-      navigate('/', { replace: true });
-    }
-  }, [navigate, author, description, publishedAt, title, urlToImage, url]);
 
   return (
     <Layout>
