@@ -17,7 +17,8 @@ interface State {
   currentPage: number;
   totalPageAmount: number;
   pageSize: number;
-  selectedFile: null | string;
+  selectedFile: string | null;
+  fileText: string;
   savedCardData: SavedCardProps | null;
   disableCurrentPosition: boolean;
 }
@@ -45,6 +46,7 @@ export const initialState = {
   totalPageAmount: 100,
   pageSize: 10,
   selectedFile: null,
+  fileText: 'No file selected',
   savedCardData: {
     author: '',
     description: '',
@@ -72,6 +74,7 @@ export const initialState = {
   setSelectedFile: () => {},
   setSavedCardData: () => {},
   setDisableCurrentPosition: () => {},
+  setFileText: () => {},
 };
 
 export const Reducer = (state: State, action: Action) => {
@@ -178,6 +181,12 @@ export const Reducer = (state: State, action: Action) => {
       return {
         ...state,
         disableCurrentPosition: payload.disableCurrentPosition,
+      };
+
+    case 'CHANGE_FILE_TEXT':
+      return {
+        ...state,
+        fileText: payload.fileText,
       };
 
     default:

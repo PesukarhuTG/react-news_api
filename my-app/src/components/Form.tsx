@@ -24,6 +24,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     setFormAccept,
     selectedFile,
     setSelectedFile,
+    fileText,
+    setFileText,
   } = useNewsContext();
 
   const {
@@ -40,6 +42,8 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const imgURL = URL.createObjectURL(e.target.files[0]);
+      const imgName = e.target.files[0].name;
+      setFileText(imgName);
       setSelectedFile(imgURL);
     }
   };
@@ -53,6 +57,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
     setFormCity('');
     setFormGender('man');
     setSelectedFile(null);
+    setFileText('No file selected');
     setFormAccept(false);
   };
 
@@ -64,7 +69,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(getDataSubmit)} data-testid="form">
-      <div className="form-wrapper">
+      <FormWrapper>
         <label className="input-wrapper">
           <span className="input-name">Name</span>
           <input
@@ -94,9 +99,9 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
           />
           {errors.birthday && <ErrMessage>{errors.birthday.message}</ErrMessage>}
         </label>
-      </div>
+      </FormWrapper>
 
-      <div className="form-wrapper">
+      <FormWrapper>
         <label className="input-wrapper">
           <span className="input-name">Choose a city</span>
           <select
@@ -148,12 +153,13 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
             </label>
           </div>
         </label>
-      </div>
+      </FormWrapper>
 
-      <label className="input-wrapper">
-        <span className="input-name">Upload a file</span>
+      <FormWrapperSingle>
         <input
+          id="fileElem"
           className="input-file"
+          style={{ display: 'none' }}
           {...register('selectedFile')}
           name="file"
           type="file"
@@ -161,9 +167,11 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
           data-testid="input-file"
           onChange={handleChange}
         />
-      </label>
+        <LabelFile htmlFor="fileElem">Choose a file</LabelFile>
+        <FileText>{fileText}</FileText>
+      </FormWrapperSingle>
 
-      <label className="input-wrapper-gorizont">
+      <FormWrapperSingle>
         <input
           type="checkbox"
           {...register('remember')}
@@ -173,7 +181,7 @@ const Form: React.FC<LoginFormProps> = ({ onSubmit }) => {
           onChange={(e) => setFormAccept(e.target.checked)}
         />
         <span className="remember-name">I consent to use my personal data</span>
-      </label>
+      </FormWrapperSingle>
 
       <button
         className="btn-submit"
@@ -192,6 +200,40 @@ const ErrMessage = styled.p`
   padding-top: 7px;
   font-size: 9px;
   color: var(--accent);
+`;
+
+const LabelFile = styled.label`
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--primary);
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: var(--button-hover);
+  }
+`;
+
+const FileText = styled.p`
+  min-width: 115px;
+  font-size: 14px;
+`;
+
+const FormWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  gap: 30px;
+`;
+
+const FormWrapperSingle = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  gap: 10px;
 `;
 
 export default Form;
