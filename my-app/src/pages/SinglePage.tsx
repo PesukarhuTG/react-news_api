@@ -39,12 +39,18 @@ const SinglePage: React.FC = () => {
 
         <NewsFullDescription>{description}</NewsFullDescription>
         <InfoWrapper>
-          <p>
-            <strong>Published date:</strong> {publishedAt}
-          </p>
-          <p>
-            <strong>Author:</strong> {author}
-          </p>
+          <PublishedDiv>
+            <span>
+              <b>Published date</b>
+            </span>
+            <span>{publishedAt ? publishedAt.slice(0, 10) : ''}</span>
+          </PublishedDiv>
+          <PublishedDiv>
+            <span>
+              <b>Author</b>
+            </span>
+            <span>{author}</span>
+          </PublishedDiv>
         </InfoWrapper>
         <InfoWrapper>
           <Button onClick={backMainPage}>❮ Back to main page</Button>
@@ -76,17 +82,20 @@ const InfoWrapper = styled.div`
 const NewsImage = styled.div`
   width: 100%;
   height: 240px;
-  margin: 40px 0 20px;
+  margin: 40px 0 30px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 0 var(--primary);
 `;
 
 const NewsFullTitle = styled.p`
-  font-size: 18px;
-  color: var(--primary);
   margin-bottom: 20px;
   text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
   text-transform: uppercase;
 `;
 
@@ -110,6 +119,12 @@ const Button = styled.button`
   &:hover {
     background-color: var(--button-hover);
   }
+`;
+
+const PublishedDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 export default SinglePage;
