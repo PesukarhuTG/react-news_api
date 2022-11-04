@@ -37,19 +37,21 @@ const SinglePage: React.FC = () => {
         />
         <NewsFullTitle>{title}</NewsFullTitle>
 
-        <NewsFullDescription>{description}</NewsFullDescription>
+        <NewsFullDescription>
+          {description || 'Sorry, this news has no description'}
+        </NewsFullDescription>
         <InfoWrapper>
           <PublishedDiv>
             <span>
               <b>Published date</b>
             </span>
-            <span>{publishedAt ? publishedAt.slice(0, 10) : ''}</span>
+            <span>{publishedAt ? publishedAt.slice(0, 10) : 'no date'}</span>
           </PublishedDiv>
           <PublishedDiv>
             <span>
               <b>Author</b>
             </span>
-            <span>{author}</span>
+            <span>{author || 'incognita'}</span>
           </PublishedDiv>
         </InfoWrapper>
         <InfoWrapper>
