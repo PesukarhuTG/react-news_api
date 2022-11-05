@@ -16,7 +16,7 @@ describe('Form tests', () => {
     expect(screen.getByTestId('input-file')).toBeInTheDocument();
   });
 
-  test('input name: check form value', async () => {
+  test('input name: check form value', () => {
     render(<Form onSubmit={() => {}} />);
 
     const input = screen.getByTestId('input-fname');
@@ -27,8 +27,9 @@ describe('Form tests', () => {
       target: { value: 'Tatiana' },
     });
 
-    const checkChanges = () => expect(input).toHaveValue('Tatiana');
-    setTimeout(checkChanges, 300);
+    waitFor(() => {
+      expect(input).toHaveValue('Tatiana');
+    });
   });
 
   test('input radio: check render', () => {
@@ -51,11 +52,12 @@ describe('Form tests', () => {
       target: { value: '2022-01-01' },
     });
 
-    const checkChanges = () => expect(input).toHaveValue('2022-01-01');
-    setTimeout(checkChanges, 300);
+    waitFor(() => {
+      expect(input).toHaveValue('2022-01-01');
+    });
   });
 
-  test('input file: upload file', async () => {
+  test('input file: upload file', () => {
     render(<Form onSubmit={() => {}} />);
 
     const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
@@ -63,7 +65,7 @@ describe('Form tests', () => {
 
     expect(inputFile).toBeInTheDocument();
 
-    await waitFor(() =>
+    waitFor(() =>
       fireEvent.change(inputFile, {
         target: { files: [fakeFile] },
       })
@@ -134,26 +136,20 @@ describe('Form tests', () => {
 
     fireEvent.click(checkbox);
 
-    const checkCompletedForm = () => {
+    waitFor(() => {
       expect(inputName).toHaveValue('Tatiana');
       expect(inputDate).toHaveValue('2022-10-10');
       expect(inputSelect).toHaveValue('Saint-Petersburg');
       expect(checkbox).toBeChecked();
-    };
-
-    setTimeout(checkCompletedForm, 300);
-
-    await waitFor(async () => {
-      fireEvent.click(submitButton);
     });
 
-    const checkClearForm = () => {
+    fireEvent.click(submitButton);
+
+    waitFor(() => {
       expect(inputName).toHaveValue('');
       expect(inputDate).toHaveValue('');
       expect(inputSelect).toHaveValue('');
       expect(checkbox).not.toBeChecked();
-    };
-
-    setTimeout(checkClearForm, 300);
+    });
   });
 });
