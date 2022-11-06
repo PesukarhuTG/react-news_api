@@ -1,34 +1,12 @@
-import FormProps from '../types/Form';
-import SavedCardProps from '../types/SavedCardData';
+import InitialStateProps from 'types/InitialState';
 import { getZero } from '../services/getZero';
-
-interface State {
-  searchVal: string;
-  formName: string;
-  formDate: string;
-  formCity: string;
-  formAccept: boolean;
-  formGender: string;
-  formList: FormProps[];
-  searchIn: string;
-  sortBy: string;
-  sortDateFrom: string;
-  sortDateTo: string;
-  currentPage: number;
-  totalPageAmount: number;
-  pageSize: number;
-  selectedFile: string | null;
-  fileText: string;
-  savedCardData: SavedCardProps | null;
-  disableCurrentPosition: boolean;
-}
 
 type Action = {
   type: string;
   payload: any; //eslint-disable-line
 };
 
-export const initialState = {
+export const initialState: InitialStateProps = {
   searchVal: '',
   formName: '',
   formDate: '',
@@ -77,7 +55,7 @@ export const initialState = {
   setFileText: () => {},
 };
 
-export const Reducer = (state: State, action: Action) => {
+export const Reducer = (state: InitialStateProps, action: Action) => {
   const { type, payload } = action;
 
   switch (type) {

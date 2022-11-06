@@ -1,52 +1,14 @@
 import React, { createContext, useReducer, useContext } from 'react';
 import FormProps from '../types/Form';
-import { initialState, Reducer } from '../store/Reducer';
 import SavedCardProps from '../types/SavedCardData';
-
-interface GlobalContent {
-  searchVal: string;
-  formName: string;
-  formDate: string;
-  formCity: string;
-  formAccept: boolean;
-  formGender: string;
-  formList: FormProps[];
-  searchIn: string;
-  sortBy: string;
-  sortDateFrom: string;
-  sortDateTo: string;
-  currentPage: number;
-  totalPageAmount: number;
-  pageSize: number;
-  selectedFile: string | null;
-  fileText: string;
-  savedCardData: SavedCardProps;
-  disableCurrentPosition: boolean;
-  setSearchValue: (searchVal: string) => void;
-  setFormName: (formName: string) => void;
-  setFormDate: (formDate: string) => void;
-  setFormCity: (formCity: string) => void;
-  setFormAccept: (formAccept: boolean) => void;
-  setFormGender: (formGender: string) => void;
-  setFormList: (formList: FormProps[]) => void;
-  setSearchIn: (searchIn: string) => void;
-  setSortBy: (sortBy: string) => void;
-  setSortDateFrom: (sortDateFrom: string) => void;
-  setSortDateTo: (sortDateTo: string) => void;
-  setCurrentPage: (currentPage: number) => void;
-  setTotalPageAmount: (totalPageAmount: number) => void;
-  setPageSize: (pageSize: number) => void;
-  setSelectedFile: (selectedFile: null | string) => void;
-  setSavedCardData: (savedCardData: SavedCardProps) => void;
-  setDisableCurrentPosition: (disableCurrentPosition: boolean) => void;
-  setFileText: (fileText: string) => void;
-}
+import InitialStateProps from '../types/InitialState';
+import { initialState, Reducer } from '../store/Reducer';
 
 interface Props {
   children?: React.ReactNode;
 }
 
-const Context = createContext<GlobalContent>(initialState);
+const Context = createContext<InitialStateProps>(initialState);
 
 export const Provider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -213,7 +175,7 @@ export const Provider = ({ children }: Props) => {
     });
   };
 
-  const value: GlobalContent = {
+  const value: InitialStateProps = {
     searchVal: state.searchVal,
     formName: state.formName,
     formDate: state.formDate,
