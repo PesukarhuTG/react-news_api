@@ -1,173 +1,140 @@
-import InitialStateProps from 'types/InitialState';
-import { getZero } from '../services/getZero';
+import State from 'types/InitialStateProps';
+import { Actions } from './actions';
+import { initialState } from './InitialState';
+import {
+  CHANGE_SEARCH_VALUE,
+  CHANGE_FORM_NAME,
+  CHANGE_FORM_DATE,
+  CHANGE_FORM_CITY,
+  CHANGE_FORM_ACCEPT,
+  CHANGE_FORM_GENDER,
+  CHANGE_FORM_LIST,
+  CHANGE_SEARCH_IN,
+  CHANGE_SORT_BY,
+  CHANGE_SORT_DATE_FROM,
+  CHANGE_SORT_DATE_TO,
+  CHANGE_CURRENT_PAGE,
+  CHANGE_TOTAL_PAGE_AMOUNT,
+  CHANGE_PAGE_SIZE,
+  CHANGE_FILE,
+  CHANGE_SAVED_CARD_DATA,
+  CURRENT_POSITION_INFO,
+  CHANGE_FILE_TEXT,
+} from './constants';
 
-type Action = {
-  type: string;
-  payload: any; //eslint-disable-line
-};
-
-export const initialState: InitialStateProps = {
-  searchVal: '',
-  formName: '',
-  formDate: '',
-  formCity: '',
-  formAccept: false,
-  formGender: 'man',
-  formList: [],
-  searchIn: 'title',
-  sortBy: 'publishedAt',
-  sortDateFrom: '2022-11-01',
-  sortDateTo: `${new Date().getFullYear()}-${getZero(new Date().getMonth() + 1)}-${getZero(
-    new Date().getDate()
-  )}`,
-  currentPage: 1,
-  totalPageAmount: 100,
-  pageSize: 10,
-  selectedFile: null,
-  fileText: 'No file selected',
-  savedCardData: {
-    author: '',
-    description: '',
-    publishedAt: '',
-    title: '',
-    url: '',
-    urlToImage: '',
-    index: null,
-  },
-  disableCurrentPosition: true,
-  setSearchValue: () => {},
-  setFormName: () => {},
-  setFormDate: () => {},
-  setFormCity: () => {},
-  setFormAccept: () => {},
-  setFormGender: () => {},
-  setFormList: () => {},
-  setSearchIn: () => {},
-  setSortBy: () => {},
-  setSortDateFrom: () => {},
-  setSortDateTo: () => {},
-  setCurrentPage: () => {},
-  setTotalPageAmount: () => {},
-  setPageSize: () => {},
-  setSelectedFile: () => {},
-  setSavedCardData: () => {},
-  setDisableCurrentPosition: () => {},
-  setFileText: () => {},
-};
-
-export const Reducer = (state: InitialStateProps, action: Action) => {
+export const Reducer = (state: State = initialState, action: Actions): State => {
   const { type, payload } = action;
 
   switch (type) {
-    case 'CHANGE_SEARCH_VALUE':
+    case CHANGE_SEARCH_VALUE:
       return {
         ...state,
-        searchVal: payload.searchVal,
+        searchVal: payload,
       };
 
-    case 'CHANGE_FORM_NAME':
+    case CHANGE_FORM_NAME:
       return {
         ...state,
-        formName: payload.formName,
+        formName: payload,
       };
 
-    case 'CHANGE_FORM_DATE':
+    case CHANGE_FORM_DATE:
       return {
         ...state,
-        formDate: payload.formDate,
+        formDate: payload,
       };
 
-    case 'CHANGE_FORM_CITY':
+    case CHANGE_FORM_CITY:
       return {
         ...state,
-        formCity: payload.formCity,
+        formCity: payload,
       };
 
-    case 'CHANGE_FORM_ACCEPT':
+    case CHANGE_FORM_ACCEPT:
       return {
         ...state,
-        formAccept: payload.formAccept,
+        formAccept: payload,
       };
 
-    case 'CHANGE_FORM_GENDER':
+    case CHANGE_FORM_GENDER:
       return {
         ...state,
-        formGender: payload.formGender,
+        formGender: payload,
       };
 
-    case 'CHANGE_FORM_LIST':
+    case CHANGE_FORM_LIST:
       return {
         ...state,
-        formList: payload.formList,
+        formList: payload,
       };
 
-    case 'CHANGE_SEARCH_IN':
+    case CHANGE_SEARCH_IN:
       return {
         ...state,
-        searchIn: payload.searchIn,
+        searchIn: payload,
       };
 
-    case 'CHANGE_SORT_BY':
+    case CHANGE_SORT_BY:
       return {
         ...state,
-        sortBy: payload.sortBy,
+        sortBy: payload,
       };
 
-    case 'CHANGE_SORT_DATE_FROM':
+    case CHANGE_SORT_DATE_FROM:
       return {
         ...state,
-        sortDateFrom: payload.sortDateFrom,
+        sortDateFrom: payload,
       };
 
-    case 'CHANGE_SORT_DATE_TO':
+    case CHANGE_SORT_DATE_TO:
       return {
         ...state,
-        sortDateTo: payload.sortDateTo,
+        sortDateTo: payload,
       };
 
-    case 'CHANGE_CURRENT_PAGE':
+    case CHANGE_CURRENT_PAGE:
       return {
         ...state,
-        currentPage: payload.currentPage,
+        currentPage: payload,
       };
 
-    case 'CHANGE_TOTAL_PAGE_AMOUNT':
+    case CHANGE_TOTAL_PAGE_AMOUNT:
       return {
         ...state,
-        totalPageAmount: payload.totalPageAmount,
+        totalPageAmount: payload,
       };
 
-    case 'CHANGE_PAGE_SIZE':
+    case CHANGE_PAGE_SIZE:
       return {
         ...state,
-        pageSize: payload.pageSize,
+        pageSize: payload,
       };
 
-    case 'CHANGE_FILE':
+    case CHANGE_FILE:
       return {
         ...state,
-        selectedFile: payload.selectedFile,
+        selectedFile: payload,
       };
 
-    case 'CHANGE_SAVED_CARD_DATA':
+    case CHANGE_SAVED_CARD_DATA:
       return {
         ...state,
-        savedCardData: payload.savedCardData,
+        savedCardData: payload,
       };
 
-    case 'CURRENT_POSITION_INFO':
+    case CURRENT_POSITION_INFO:
       return {
         ...state,
-        disableCurrentPosition: payload.disableCurrentPosition,
+        disableCurrentPosition: payload,
       };
 
-    case 'CHANGE_FILE_TEXT':
+    case CHANGE_FILE_TEXT:
       return {
         ...state,
-        fileText: payload.fileText,
+        fileText: payload,
       };
 
     default:
-      throw new Error(`No case for type ${type} found in Reducer.`);
+      return state;
   }
 };

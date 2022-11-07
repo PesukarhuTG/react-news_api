@@ -1,7 +1,7 @@
 import FormProps from './Form';
 import SavedCardProps from './SavedCardData';
 
-interface InitialStateProps {
+interface State {
   searchVal: string;
   formName: string;
   formDate: string;
@@ -40,4 +40,4 @@ interface InitialStateProps {
   setFileText: (fileText: string) => void;
 }
 
-export default InitialStateProps;
+export default State;

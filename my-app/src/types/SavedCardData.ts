@@ -1,10 +1,10 @@
 interface SavedCardProps {
-  author?: string | undefined;
-  description?: string | undefined;
-  publishedAt?: string | undefined;
-  title?: string | undefined;
-  url?: string | undefined;
-  urlToImage?: string | undefined;
+  author?: string;
+  description?: string;
+  publishedAt?: string;
+  title?: string;
+  url?: string;
+  urlToImage?: string;
   index?: number | null;
 }
 
