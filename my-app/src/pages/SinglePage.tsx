@@ -2,12 +2,15 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Layout } from '../components';
 import { useNavigate } from 'react-router-dom';
-import useNewsContext from '../store/Context';
 import SavedCardProps from '../types/SavedCardData';
+import { useDispatch, useSelector } from 'react-redux';
+import { сurrentPositionInfo } from 'store/actions';
+import State from 'types/InitialStateProps';
 
 const SinglePage: React.FC = () => {
+  const { savedCardData } = useSelector((state: State) => state);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { savedCardData, setDisableCurrentPosition } = useNewsContext();
 
   const { author, description, publishedAt, title, urlToImage, url } =
     savedCardData as SavedCardProps;
@@ -22,7 +25,7 @@ const SinglePage: React.FC = () => {
     }
 
     return () => {
-      setDisableCurrentPosition(true);
+      dispatch(сurrentPositionInfo(true));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

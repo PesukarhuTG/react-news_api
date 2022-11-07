@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import useNewsContext from '../store/Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { сhangeSortDateTo } from 'store/actions';
+import State from 'types/InitialStateProps';
 
 const SortDateTo = () => {
-  const { sortDateTo, setSortDateTo } = useNewsContext();
+  const { sortDateTo } = useSelector((state: State) => state);
+  const dispatch = useDispatch();
 
   return (
     <label>
@@ -12,7 +15,7 @@ const SortDateTo = () => {
         name="date-from"
         type="date"
         value={sortDateTo}
-        onChange={(e) => setSortDateTo(e.target.value)}
+        onChange={(e) => dispatch(сhangeSortDateTo(e.target.value))}
       />
     </label>
   );

@@ -12,7 +12,9 @@ import {
 import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
 import CardProps from '../types/Card';
-import useNewsContext from '../store/Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { сhangeCurrentPage, сhangeTotalPageAmount, сhangePageSize } from 'store/actions';
+import State from 'types/InitialStateProps';
 
 const MainPage: React.FC = () => {
   const [news, setNews] = useState<CardProps[]>([]);
@@ -25,12 +27,10 @@ const MainPage: React.FC = () => {
     sortDateFrom,
     sortDateTo,
     currentPage,
-    setCurrentPage,
     totalPageAmount,
-    setTotalPageAmount,
     pageSize,
-    setPageSize,
-  } = useNewsContext();
+  } = useSelector((state: State) => state);
+  const dispatch = useDispatch();
 
   const onSubmit = (data: CardProps[]): void => {
     if (!data.length) {
@@ -59,12 +59,12 @@ const MainPage: React.FC = () => {
         } else {
           setMessage('');
           setNews(data.articles);
-          setTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults);
+          dispatch(сhangeTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults));
         }
       } else {
         const data = await getNews(currentPage, pageSize).then((resp) => resp);
         setNews(data.articles);
-        setTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults);
+        dispatch(сhangeTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults));
       }
     };
 
@@ -92,8 +92,8 @@ const MainPage: React.FC = () => {
       <Pagination
         page={currentPage}
         onChange={(page, pageSize) => {
-          setCurrentPage(page);
-          setPageSize(pageSize);
+          dispatch(сhangeCurrentPage(page));
+          dispatch(сhangePageSize(pageSize));
         }}
         total={totalPageAmount}
         pageSize={pageSize}

@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import useNewsContext from '../store/Context';
 import TitleCurrentPosition from './TitleCurrentPosition';
+import { useSelector } from 'react-redux';
+import State from 'types/InitialStateProps';
 
 const Header: React.FC = () => {
-  const { disableCurrentPosition } = useNewsContext();
+  const { disableCurrentPosition } = useSelector((state: State) => state);
 
   return (
     <AppHeader>

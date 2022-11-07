@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import CardProps from '../types/Card';
-import useNewsContext from '../store/Context';
+import { useDispatch } from 'react-redux';
+import { сhangeSavedCardData, сurrentPositionInfo } from 'store/actions';
 
 interface Props {
   item: CardProps;
@@ -9,12 +10,14 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ item, index }) => {
-  const { setSavedCardData, setDisableCurrentPosition } = useNewsContext();
+  const dispatch = useDispatch();
   const { author, description, publishedAt, title, urlToImage, url } = item;
 
   const showSeparatePage = () => {
-    setSavedCardData({ author, description, publishedAt, title, urlToImage, url, index });
-    setDisableCurrentPosition(false);
+    dispatch(
+      сhangeSavedCardData({ author, description, publishedAt, title, urlToImage, url, index })
+    );
+    dispatch(сurrentPositionInfo(false));
   };
 
   return (

@@ -132,92 +132,92 @@ export type Actions =
   | CurrentPositionInfo
   | ChangeFileText;
 
-export const ChangeSearchValue = (payload: string): ChangeSearchValue => ({
+export const changeSearchValue = (payload: string): ChangeSearchValue => ({
   type: CHANGE_SEARCH_VALUE,
   payload,
 });
 
-export const ChangeFormName = (payload: string): ChangeFormName => ({
+export const сhangeFormName = (payload: string): ChangeFormName => ({
   type: CHANGE_FORM_NAME,
   payload,
 });
 
-export const ChangeFormDate = (payload: string): ChangeFormDate => ({
+export const сhangeFormDate = (payload: string): ChangeFormDate => ({
   type: CHANGE_FORM_DATE,
   payload,
 });
 
-export const ChangeFormCity = (payload: string): ChangeFormCity => ({
+export const сhangeFormCity = (payload: string): ChangeFormCity => ({
   type: CHANGE_FORM_CITY,
   payload,
 });
 
-export const ChangeFormAccept = (payload: boolean): ChangeFormAccept => ({
+export const сhangeFormAccept = (payload: boolean): ChangeFormAccept => ({
   type: CHANGE_FORM_ACCEPT,
   payload,
 });
 
-export const ChangeFormGender = (payload: string): ChangeFormGender => ({
+export const сhangeFormGender = (payload: string): ChangeFormGender => ({
   type: CHANGE_FORM_GENDER,
   payload,
 });
 
-export const ChangeFormList = (payload: FormProps[]): ChangeFormList => ({
+export const сhangeFormList = (payload: FormProps[]): ChangeFormList => ({
   type: CHANGE_FORM_LIST,
   payload,
 });
 
-export const ChangeSearchIn = (payload: string): ChangeSearchIn => ({
+export const сhangeSearchIn = (payload: string): ChangeSearchIn => ({
   type: CHANGE_SEARCH_IN,
   payload,
 });
 
-export const ChangeSortBy = (payload: string): ChangeSortBy => ({
+export const сhangeSortBy = (payload: string): ChangeSortBy => ({
   type: CHANGE_SORT_BY,
   payload,
 });
 
-export const ChangeSortDateFrom = (payload: string): ChangeSortDateFrom => ({
+export const сhangeSortDateFrom = (payload: string): ChangeSortDateFrom => ({
   type: CHANGE_SORT_DATE_FROM,
   payload,
 });
 
-export const ChangeSortDateTo = (payload: string): ChangeSortDateTo => ({
+export const сhangeSortDateTo = (payload: string): ChangeSortDateTo => ({
   type: CHANGE_SORT_DATE_TO,
   payload,
 });
 
-export const ChangeCurrentPage = (payload: number): ChangeCurrentPage => ({
+export const сhangeCurrentPage = (payload: number): ChangeCurrentPage => ({
   type: CHANGE_CURRENT_PAGE,
   payload,
 });
 
-export const ChangeTotalPageAmount = (payload: number): ChangeTotalPageAmount => ({
+export const сhangeTotalPageAmount = (payload: number): ChangeTotalPageAmount => ({
   type: CHANGE_TOTAL_PAGE_AMOUNT,
   payload,
 });
 
-export const ChangePageSize = (payload: number): ChangePageSize => ({
+export const сhangePageSize = (payload: number): ChangePageSize => ({
   type: CHANGE_PAGE_SIZE,
   payload,
 });
 
-export const ChangeFile = (payload: string | null): ChangeFile => ({
+export const сhangeFile = (payload: string | null): ChangeFile => ({
   type: CHANGE_FILE,
   payload,
 });
 
-export const ChangeSavedCardData = (payload: SavedCardProps): ChangeSavedCardData => ({
+export const сhangeSavedCardData = (payload: SavedCardProps): ChangeSavedCardData => ({
   type: CHANGE_SAVED_CARD_DATA,
   payload,
 });
 
-export const CurrentPositionInfo = (payload: boolean): CurrentPositionInfo => ({
+export const сurrentPositionInfo = (payload: boolean): CurrentPositionInfo => ({
   type: CURRENT_POSITION_INFO,
   payload,
 });
 
-export const ChangeFileText = (payload: string): ChangeFileText => ({
+export const сhangeFileText = (payload: string): ChangeFileText => ({
   type: CHANGE_FILE_TEXT,
   payload,
 });

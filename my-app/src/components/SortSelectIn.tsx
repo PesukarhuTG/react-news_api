@@ -1,17 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import useNewsContext from '../store/Context';
+import { useDispatch, useSelector } from 'react-redux';
+import State from 'types/InitialStateProps';
+import { сhangeSearchIn } from 'store/actions';
 
 interface SortProps {
   options: string[];
 }
 
 const SortSelectIn: React.FC<SortProps> = ({ options }) => {
-  const { searchIn, setSearchIn } = useNewsContext();
+  const { searchIn } = useSelector((state: State) => state);
+  const dispatch = useDispatch();
 
   return (
     <label>
-      <Select name="select-sort-in" value={searchIn} onChange={(e) => setSearchIn(e.target.value)}>
+      <Select
+        name="select-sort-in"
+        value={searchIn}
+        onChange={(e) => dispatch(сhangeSearchIn(e.target.value))}
+      >
         {options.map((item: string, index: number) => {
           return (
             <option value={item} key={index}>

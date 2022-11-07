@@ -5,6 +5,8 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { BrowserRouter } from 'react-router-dom';
 import { MainPage } from '../pages';
+import { Provider } from 'react-redux';
+import store from '../store/Store';
 
 const fakeData = [
   {
@@ -53,9 +55,11 @@ describe('API tests', () => {
 
   test('fetch and display data', async () => {
     const { findByText } = render(
-      <BrowserRouter>
-        <MainPage />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <MainPage />
+        </BrowserRouter>
+      </Provider>
     );
 
     expect(await findByText('Some facts about cats')).toBeInTheDocument();
@@ -71,9 +75,11 @@ describe('API tests', () => {
     );
 
     render(
-      <BrowserRouter>
-        <MainPage />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <MainPage />
+        </BrowserRouter>
+      </Provider>
     );
 
     const downloadSpinner = await screen.getByTestId('spinner-test');
