@@ -1,4 +1,5 @@
 import FormProps from '../types/Form';
+import CardProps from '../types/Card';
 import SavedCardProps from '../types/SavedCardData';
 
 import {
@@ -20,7 +21,13 @@ import {
   CHANGE_SAVED_CARD_DATA,
   CURRENT_POSITION_INFO,
   CHANGE_FILE_TEXT,
+  ADD_NEWS,
 } from './constants';
+
+export type AddNews = {
+  type: typeof ADD_NEWS;
+  payload: CardProps[];
+};
 
 export type ChangeSearchValue = {
   type: typeof CHANGE_SEARCH_VALUE;
@@ -130,7 +137,13 @@ export type Actions =
   | ChangeFile
   | ChangeSavedCardData
   | CurrentPositionInfo
-  | ChangeFileText;
+  | ChangeFileText
+  | AddNews;
+
+export const addNews = (payload: CardProps[]): AddNews => ({
+  type: ADD_NEWS,
+  payload,
+});
 
 export const changeSearchValue = (payload: string): ChangeSearchValue => ({
   type: CHANGE_SEARCH_VALUE,

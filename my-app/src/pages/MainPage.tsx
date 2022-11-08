@@ -13,7 +13,7 @@ import styled from 'styled-components';
 import { getNews, searchNews } from '../services/getDataApi';
 import CardProps from '../types/Card';
 import { useDispatch, useSelector } from 'react-redux';
-import { сhangeCurrentPage, сhangeTotalPageAmount, сhangePageSize } from 'store/actions';
+import { сhangeCurrentPage, сhangeTotalPageAmount, сhangePageSize, addNews } from 'store/actions';
 import State from 'types/InitialStateProps';
 
 const MainPage: React.FC = () => {
@@ -29,6 +29,7 @@ const MainPage: React.FC = () => {
     currentPage,
     totalPageAmount,
     pageSize,
+    newsData,
   } = useSelector((state: State) => state);
   const dispatch = useDispatch();
 
@@ -42,8 +43,9 @@ const MainPage: React.FC = () => {
   };
 
   useEffect(() => {
-    const checkData = async (): Promise<void> => {
+    const onLoadChangedData = async (): Promise<void> => {
       if (searchVal) {
+        console.log('изменения полей: загрузка поиска');
         const data = await searchNews(
           searchVal,
           searchIn,
@@ -62,13 +64,14 @@ const MainPage: React.FC = () => {
           dispatch(сhangeTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults));
         }
       } else {
+        console.log('изменения полей: загрузка топ без поиска');
         const data = await getNews(currentPage, pageSize).then((resp) => resp);
         setNews(data.articles);
         dispatch(сhangeTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults));
       }
     };
 
-    checkData();
+    onLoadChangedData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchIn, sortBy, sortDateFrom, sortDateTo, currentPage, pageSize]);
 

@@ -20,12 +20,18 @@ import {
   CHANGE_SAVED_CARD_DATA,
   CURRENT_POSITION_INFO,
   CHANGE_FILE_TEXT,
+  ADD_NEWS,
 } from './constants';
 
-export const Reducer = (state: State = initialState, action: Actions): State => {
+export const reducer = (state: State = initialState, action: Actions): State => {
   const { type, payload } = action;
 
   switch (type) {
+    case ADD_NEWS:
+      return {
+        ...state,
+        newsData: [...payload],
+      };
     case CHANGE_SEARCH_VALUE:
       return {
         ...state,
