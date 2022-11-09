@@ -9,7 +9,7 @@ describe('Search', () => {
   test('First, we dont have a focus and then we get it', () => {
     render(
       <Provider store={store}>
-        <SearchPanel onSearch={() => {}} />
+        <SearchPanel />
       </Provider>
     );
 
@@ -24,7 +24,7 @@ describe('Search', () => {
   test('check input value', () => {
     render(
       <Provider store={store}>
-        <SearchPanel onSearch={() => {}} />
+        <SearchPanel />
       </Provider>
     );
 

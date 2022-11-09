@@ -7,11 +7,7 @@ import { AppDispatch, RootState } from 'store/Store';
 
 const { Search } = Input;
 
-interface SearchProps {
-  onSearch: () => void;
-}
-
-const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
+const SearchPanel: React.FC = () => {
   const { searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage, pageSize } =
     useSelector((state: RootState) => state.news);
   const dispatch = useDispatch<AppDispatch>();
@@ -36,8 +32,6 @@ const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
     } catch (e) {
       console.error(e);
     }
-
-    onSearch();
   };
 
   return (

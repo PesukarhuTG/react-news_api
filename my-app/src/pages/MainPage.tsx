@@ -1,5 +1,5 @@
 import { AppDispatch, RootState } from 'store/Store';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Layout,
   SearchPanel,
@@ -15,15 +15,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSearchPosts, fetchPosts } from 'store/NewsSlice';
 
 const MainPage: React.FC = () => {
-  const [message, setMessage] = useState<string>('');
-
-  const { searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage, pageSize, newsData } =
-    useSelector((state: RootState) => state.news);
+  const {
+    searchVal,
+    searchIn,
+    sortBy,
+    sortDateFrom,
+    sortDateTo,
+    currentPage,
+    pageSize,
+    newsData,
+    errorMessage,
+  } = useSelector((state: RootState) => state.news);
   const dispatch = useDispatch<AppDispatch>();
-
-  const onSearch = (): void => {
-    setMessage(!newsData.length ? 'Sorry, your request is failed' : '');
-  };
 
   useEffect(() => {
     const onLoadChangedData = async (): Promise<void> => {
@@ -38,7 +41,6 @@ const MainPage: React.FC = () => {
           pageSize,
         };
         dispatch(fetchSearchPosts(setRequestData));
-        setMessage(!newsData.length ? 'Sorry, your request is failed' : '');
       } else {
         const setPages = { currentPage, pageSize };
         dispatch(fetchPosts(setPages));
@@ -51,7 +53,7 @@ const MainPage: React.FC = () => {
 
   return (
     <Layout>
-      <SearchPanel onSearch={onSearch} />
+      <SearchPanel />
       <Headling>Hot news on Racoon digest</Headling>
       <SortWrapper>
         <SortBlock>
@@ -64,7 +66,7 @@ const MainPage: React.FC = () => {
           <SortDateTo />
         </SortBlock>
       </SortWrapper>
-      <Message data-testid="fail-message">{message}</Message>
+      <Message data-testid="fail-message">{errorMessage}</Message>
       <CardsAlbum cards={newsData} />
       <Pagination />
     </Layout>

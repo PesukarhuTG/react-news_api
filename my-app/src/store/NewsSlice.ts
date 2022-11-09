@@ -38,6 +38,7 @@ interface InitState {
   disableCurrentPosition: boolean;
   savedCardData: SavedCardProps;
   newsData: CardProps[];
+  errorMessage: string;
 }
 
 const initialState: InitState = {
@@ -62,6 +63,7 @@ const initialState: InitState = {
     index: null,
   },
   newsData: [],
+  errorMessage: '',
 };
 
 export const fetchPosts = createAsyncThunk(
@@ -132,6 +134,7 @@ const newsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state: InitState, action: PayloadAction<RequestData>) => {
         const { articles, totalResults } = action.payload;
         state.newsData = articles;
+        state.errorMessage = !articles.length ? 'Ooops, something is wrong...' : '';
         state.totalPageAmount = totalResults > 100 ? 100 : totalResults;
       })
       .addCase(
@@ -139,6 +142,7 @@ const newsSlice = createSlice({
         (state: InitState, action: PayloadAction<RequestData>) => {
           const { articles, totalResults } = action.payload;
           state.newsData = articles;
+          state.errorMessage = !articles.length ? 'Sorry, the request is failed' : '';
           state.totalPageAmount = totalResults > 100 ? 100 : totalResults;
         }
       );
