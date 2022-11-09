@@ -10,6 +10,12 @@ interface PagesDataProps {
   pageSize: number;
 }
 
+interface RequestData {
+  status: string;
+  totalResults: number;
+  articles: CardProps[];
+}
+
 interface SearchDataProps {
   searchVal: string;
   searchIn: string;
@@ -67,7 +73,7 @@ export const fetchPosts = createAsyncThunk(
       `${BASE_URL}top-headlines?country=us&page=${currentPage}&pageSize=${pageSize}&apiKey=${API_KEY}`
     );
     const data = await response.json();
-    return data.articles;
+    return data;
   }
 );
 
@@ -81,7 +87,7 @@ export const fetchSearchPosts = createAsyncThunk(
       `${BASE_URL}everything?searchIn=${searchIn}&q=${searchVal}&sortBy=${sortBy}&from=${sortDateFrom}&to=${sortDateTo}&page=${currentPage}&pageSize=${pageSize}&apiKey=${API_KEY}`
     );
     const data = await response.json();
-    return data.articles;
+    return data;
   }
 );
 
@@ -123,13 +129,17 @@ const newsSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPosts.fulfilled, (state: InitState, action: PayloadAction<CardProps[]>) => {
-        state.newsData = action.payload;
+      .addCase(fetchPosts.fulfilled, (state: InitState, action: PayloadAction<RequestData>) => {
+        const { articles, totalResults } = action.payload;
+        state.newsData = articles;
+        state.totalPageAmount = totalResults > 100 ? 100 : totalResults;
       })
       .addCase(
         fetchSearchPosts.fulfilled,
-        (state: InitState, action: PayloadAction<CardProps[]>) => {
-          state.newsData = action.payload;
+        (state: InitState, action: PayloadAction<RequestData>) => {
+          const { articles, totalResults } = action.payload;
+          state.newsData = articles;
+          state.totalPageAmount = totalResults > 100 ? 100 : totalResults;
         }
       );
   },
