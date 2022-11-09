@@ -1,3 +1,4 @@
+import { AppDispatch, RootState } from 'store/Store';
 import React, { useState, useEffect } from 'react';
 import {
   Layout,
@@ -10,64 +11,37 @@ import {
   Pagination,
 } from 'components';
 import styled from 'styled-components';
-import { getNews, searchNews } from '../services/getDataApi';
-import CardProps from '../types/Card';
 import { useDispatch, useSelector } from 'react-redux';
-import { сhangeCurrentPage, сhangeTotalPageAmount, сhangePageSize, addNews } from 'store/actions';
-import State from 'types/InitialStateProps';
+import { fetchSearchPosts, fetchPosts } from 'store/NewsSlice';
 
 const MainPage: React.FC = () => {
-  const [news, setNews] = useState<CardProps[]>([]);
   const [message, setMessage] = useState<string>('');
 
-  const {
-    searchVal,
-    searchIn,
-    sortBy,
-    sortDateFrom,
-    sortDateTo,
-    currentPage,
-    totalPageAmount,
-    pageSize,
-    newsData,
-  } = useSelector((state: State) => state);
-  const dispatch = useDispatch();
+  const { searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage, pageSize, newsData } =
+    useSelector((state: RootState) => state.news);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const onSubmit = (data: CardProps[]): void => {
-    if (!data.length) {
-      setMessage('Sorry, your request is failed');
-    } else {
-      setMessage('');
-    }
-    setNews(data);
+  const onSearch = (): void => {
+    setMessage(!newsData.length ? 'Sorry, your request is failed' : '');
   };
 
   useEffect(() => {
     const onLoadChangedData = async (): Promise<void> => {
       if (searchVal) {
-        console.log('изменения полей: загрузка поиска');
-        const data = await searchNews(
+        const setRequestData = {
           searchVal,
           searchIn,
           sortBy,
           sortDateFrom,
           sortDateTo,
           currentPage,
-          pageSize
-        ).then((resp) => resp);
-
-        if (!data.articles.length) {
-          setMessage('Sorry, your request is failed');
-        } else {
-          setMessage('');
-          setNews(data.articles);
-          dispatch(сhangeTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults));
-        }
+          pageSize,
+        };
+        dispatch(fetchSearchPosts(setRequestData));
+        setMessage(!newsData.length ? 'Sorry, your request is failed' : '');
       } else {
-        console.log('изменения полей: загрузка топ без поиска');
-        const data = await getNews(currentPage, pageSize).then((resp) => resp);
-        setNews(data.articles);
-        dispatch(сhangeTotalPageAmount(data.totalResults > 100 ? 100 : data.totalResults));
+        const setPages = { currentPage, pageSize };
+        dispatch(fetchPosts(setPages));
       }
     };
 
@@ -77,7 +51,7 @@ const MainPage: React.FC = () => {
 
   return (
     <Layout>
-      <SearchPanel onSearch={onSubmit} />
+      <SearchPanel onSearch={onSearch} />
       <Headling>Hot news on Racoon digest</Headling>
       <SortWrapper>
         <SortBlock>
@@ -91,16 +65,8 @@ const MainPage: React.FC = () => {
         </SortBlock>
       </SortWrapper>
       <Message data-testid="fail-message">{message}</Message>
-      <CardsAlbum cards={news} />
-      <Pagination
-        page={currentPage}
-        onChange={(page, pageSize) => {
-          dispatch(сhangeCurrentPage(page));
-          dispatch(сhangePageSize(pageSize));
-        }}
-        total={totalPageAmount}
-        pageSize={pageSize}
-      />
+      <CardsAlbum cards={newsData} />
+      <Pagination />
     </Layout>
   );
 };

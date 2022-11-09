@@ -1,47 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Input } from 'antd';
-import CardProps from '../types/Card';
-import { getNews, searchNews } from '../services/getDataApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSearchValue, сhangeTotalPageAmount } from 'store/actions';
-import State from 'types/InitialStateProps';
+import { changeSearchValue, fetchPosts, fetchSearchPosts } from '../store/NewsSlice';
+import { AppDispatch, RootState } from 'store/Store';
 
 const { Search } = Input;
 
 interface SearchProps {
-  onSearch: (data: CardProps[]) => void;
+  onSearch: () => void;
 }
 
 const SearchPanel: React.FC<SearchProps> = ({ onSearch }) => {
   const { searchVal, searchIn, sortBy, sortDateFrom, sortDateTo, currentPage, pageSize } =
-    useSelector((state: State) => state);
-  const dispatch = useDispatch();
+    useSelector((state: RootState) => state.news);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = async () => {
     try {
       if (searchVal) {
-        await searchNews(
+        const setRequestData = {
           searchVal,
           searchIn,
           sortBy,
           sortDateFrom,
           sortDateTo,
           currentPage,
-          pageSize
-        ).then((resp) => {
-          onSearch(resp.articles);
-          dispatch(сhangeTotalPageAmount(resp.totalResults > 100 ? 100 : resp.totalResults));
-        });
+          pageSize,
+        };
+        dispatch(fetchSearchPosts(setRequestData));
       } else {
-        await getNews(currentPage, pageSize).then((resp) => {
-          onSearch(resp.articles);
-          dispatch(сhangeTotalPageAmount(resp.totalResults > 100 ? 100 : resp.totalResults));
-        });
+        const setPages = { currentPage, pageSize };
+        dispatch(fetchPosts(setPages));
       }
     } catch (e) {
       console.error(e);
     }
+
+    onSearch();
   };
 
   return (

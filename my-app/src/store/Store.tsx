@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer } from './Reducer';
+import newsReducer from './NewsSlice';
+import formReducer from './FormSlice';
 
 const store = configureStore({
-  reducer: reducer,
+  reducer: {
+    news: newsReducer,
+    forms: formReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
@@ -12,3 +16,6 @@ const store = configureStore({
 });
 
 export default store;
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

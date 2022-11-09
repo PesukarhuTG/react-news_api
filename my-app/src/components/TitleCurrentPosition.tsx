@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import State from 'types/InitialStateProps';
+import { RootState } from 'store/Store';
 
 const TitleCurrentPosition: React.FC = () => {
-  const { currentPage, savedCardData } = useSelector((state: State) => state);
+  const { currentPage, savedCardData } = useSelector((state: RootState) => state.news);
 
   return (
     <Title>
-      page #{currentPage}, news #{savedCardData.index || 0}
+      page #{currentPage}, news #{savedCardData ? savedCardData.index : 0}
     </Title>
   );
 };

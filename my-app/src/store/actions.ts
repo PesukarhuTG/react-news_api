@@ -142,7 +142,7 @@ export type Actions =
 
 export const addNews = (payload: CardProps[]): AddNews => ({
   type: ADD_NEWS,
-  payload,
+  payload: [...payload],
 });
 
 export const changeSearchValue = (payload: string): ChangeSearchValue => ({

@@ -4,12 +4,12 @@ import { Layout } from '../components';
 import { useNavigate } from 'react-router-dom';
 import SavedCardProps from '../types/SavedCardData';
 import { useDispatch, useSelector } from 'react-redux';
-import { сurrentPositionInfo } from 'store/actions';
-import State from 'types/InitialStateProps';
+import { changeCurrentPositionInfo } from 'store/NewsSlice';
+import { AppDispatch, RootState } from 'store/Store';
 
 const SinglePage: React.FC = () => {
-  const { savedCardData } = useSelector((state: State) => state);
-  const dispatch = useDispatch();
+  const { savedCardData } = useSelector((state: RootState) => state.news);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const { author, description, publishedAt, title, urlToImage, url } =
@@ -25,7 +25,7 @@ const SinglePage: React.FC = () => {
     }
 
     return () => {
-      dispatch(сurrentPositionInfo(true));
+      dispatch(changeCurrentPositionInfo(true));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

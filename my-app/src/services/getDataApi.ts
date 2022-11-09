@@ -1,6 +1,4 @@
-// const API_KEY = '15a43de0072f430ca5b8ea4bdcc6d11a'; dead 07/11/2022
-const API_KEY = '8da7981f38cd47dda2ae9e2629b2a9a2';
-const BASE_URL = 'https://newsapi.org/v2/';
+import { API_KEY, BASE_URL } from './constants';
 
 const getData = (restUrl: string) =>
   fetch(`${BASE_URL}${restUrl}`)
@@ -29,3 +27,18 @@ export const searchNews = async (
   const url = `everything?searchIn=${where}&q=${query}&sortBy=${sort}&from=${dateFrom}&to=${dateTo}&page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`;
   return await getData(url);
 };
+
+// ===============================================
+
+// type DispatchProps = (action: AddNews) => CardProps[];
+
+// export const fetchNews = (page: number, pageSize: number) => {
+//   const url = `top-headlines?country=us&page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`;
+
+//   return (dispatch: ThunkDispatch<DispatchProps, void, Action>) => {
+//     fetch(`${BASE_URL}${url}`)
+//       .then((response) => response.json())
+//       .then((json) => dispatch(addNews(json)))
+//       .catch((err) => console.error(err));
+//   };
+// };

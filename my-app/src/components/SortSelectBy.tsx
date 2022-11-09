@@ -1,23 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { сhangeSortBy } from 'store/actions';
-import State from 'types/InitialStateProps';
+import { changeSortBy } from 'store/NewsSlice';
+import { AppDispatch, RootState } from 'store/Store';
 
 interface SortProps {
   options: string[];
 }
 
 const SortSelectBy: React.FC<SortProps> = ({ options }) => {
-  const { sortBy } = useSelector((state: State) => state);
-  const dispatch = useDispatch();
+  const { sortBy } = useSelector((state: RootState) => state.news);
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <label>
       <Select
         name="select-sort-by"
         value={sortBy}
-        onChange={(e) => dispatch(сhangeSortBy(e.target.value))}
+        onChange={(e) => dispatch(changeSortBy(e.target.value))}
       >
         {options.map((item: string, index: number) => {
           return (

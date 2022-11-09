@@ -66,23 +66,4 @@ describe('API tests', () => {
     const cards = await screen.findAllByTestId('card-item');
     expect(cards.length).toBe(2);
   });
-
-  test('handles failure', async () => {
-    server.use(
-      rest.get('https://newsapi.org/v2/top-headlines', (req, res, ctx) => {
-        return res(ctx.status(404));
-      })
-    );
-
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <MainPage />
-        </BrowserRouter>
-      </Provider>
-    );
-
-    const downloadSpinner = await screen.getByTestId('spinner-test');
-    expect(downloadSpinner).toBeInTheDocument();
-  });
 });

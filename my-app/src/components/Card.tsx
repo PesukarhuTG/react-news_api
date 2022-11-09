@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import CardProps from '../types/Card';
+import { AppDispatch } from 'store/Store';
 import { useDispatch } from 'react-redux';
-import { сhangeSavedCardData, сurrentPositionInfo } from 'store/actions';
+import { changeSavedCardData, changeCurrentPositionInfo } from 'store/NewsSlice';
 
 interface Props {
   item: CardProps;
@@ -10,14 +11,14 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ item, index }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { author, description, publishedAt, title, urlToImage, url } = item;
 
   const showSeparatePage = () => {
     dispatch(
-      сhangeSavedCardData({ author, description, publishedAt, title, urlToImage, url, index })
+      changeSavedCardData({ author, description, publishedAt, title, urlToImage, url, index })
     );
-    dispatch(сurrentPositionInfo(false));
+    dispatch(changeCurrentPositionInfo(false));
   };
 
   return (
